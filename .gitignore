@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ChromaDB persistent storage
+chroma_db/
+
+# SQLite database
+database/*.db
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Byte-compiled
+*.pyc
