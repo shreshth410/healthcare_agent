@@ -1,0 +1,61 @@
+HISTORY OF PRESENT ILLNESS:
+Mr. Robert Johnson is a 58-year-old male with a past medical history significant for hypertension (diagnosed 2015, on lisinopril 20mg daily), type 2 diabetes mellitus (HbA1c 7.2%, on metformin 1000mg BID), and hyperlipidemia (on atorvastatin 40mg daily) who presents to the Emergency Department via EMS with a chief complaint of acute onset crushing substernal chest pain.
+
+The patient reports that approximately 2 hours prior to arrival, he developed sudden onset crushing substernal chest pain rated 9/10 in severity, radiating to his left arm and jaw. The pain is associated with profuse diaphoresis, nausea (without vomiting), and shortness of breath. He denies any prior similar episodes. He took one aspirin 325mg at home prior to EMS arrival. The pain has not improved with rest.
+
+REVIEW OF SYSTEMS:
+Cardiovascular: Chest pain as described above, diaphoresis. Denies palpitations.
+Respiratory: Shortness of breath. Denies cough, hemoptysis.
+GI: Nausea, no vomiting. Denies abdominal pain.
+Neurological: Denies headache, dizziness, syncope.
+All other systems reviewed and negative.
+
+PAST MEDICAL HISTORY:
+1. Essential hypertension — diagnosed 2015
+2. Type 2 diabetes mellitus — diagnosed 2018
+3. Hyperlipidemia — diagnosed 2016
+4. Former smoker — quit 2020, 20 pack-year history
+
+MEDICATIONS:
+1. Lisinopril 20mg daily
+2. Metformin 1000mg BID
+3. Atorvastatin 40mg daily
+4. Aspirin 81mg daily
+
+ALLERGIES: No known drug allergies
+
+VITAL SIGNS:
+- Blood Pressure: 165/95 mmHg
+- Heart Rate: 102 bpm
+- Respiratory Rate: 22 breaths/min
+- Temperature: 98.6°F (37.0°C)
+- SpO2: 94% on room air
+
+PHYSICAL EXAMINATION:
+General: Alert, oriented, moderate distress, diaphoretic
+Cardiovascular: Tachycardic, regular rhythm, no murmurs/rubs/gallops, JVP not elevated
+Respiratory: Bilateral breath sounds clear, no wheezes/crackles/rhonchi
+Abdomen: Soft, non-tender, non-distended, normal bowel sounds
+Extremities: No edema, peripheral pulses 2+ bilaterally
+
+LABORATORY RESULTS:
+- Troponin I: 4.2 ng/mL (elevated, normal <0.04)
+- CK-MB: 38 U/L (elevated, normal <25)
+- BNP: 180 pg/mL (mildly elevated)
+- CBC: WBC 11.2, Hgb 14.1, Plt 245
+- BMP: Na 139, K 4.1, Cr 1.0, Glucose 198
+- HbA1c: 7.2%
+
+ECG:
+12-lead ECG shows ST-segment elevation in leads II, III, aVF with reciprocal ST depression in leads I and aVL, consistent with acute inferior STEMI.
+
+IMAGING:
+Chest X-ray: No acute cardiopulmonary process. Heart size normal.
+
+ASSESSMENT AND PLAN:
+58-year-old male presenting with acute inferior ST-elevation myocardial infarction (STEMI). Cardiology consulted for emergent cardiac catheterization. Patient given loading dose of clopidogrel 600mg, heparin bolus initiated, and morphine 4mg IV for pain management. Planning for emergent percutaneous coronary intervention (PCI).
+
+PROCEDURES:
+1. 12-lead ECG performed and interpreted
+2. Peripheral IV access established (2 large-bore IVs)
+3. Cardiac catheterization planned
