@@ -149,8 +149,7 @@ st.sidebar.markdown(
     """
     <div style='font-size: 0.8rem; color: #888;'>
     <b>Powered by:</b><br>
-    • Claude Sonnet (coding & compliance)<br>
-    • Gemini Flash (extraction)<br>
+    • Gemini 2.0 Flash (all agents)<br>
     • ChromaDB + sentence-transformers (RAG)<br>
     • LangGraph (orchestration)
     </div>

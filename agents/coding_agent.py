@@ -1,17 +1,17 @@
 """
 Coding Agent
-Uses Claude Sonnet to assign ICD-10 and CPT codes with confidence scores
+Uses Gemini 2.0 Flash to assign ICD-10 and CPT codes with confidence scores
 based on extracted clinical data and retrieved candidate codes.
 """
 
 import os
 import json
-from anthropic import Anthropic
+import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
 
-client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.60"))
 
@@ -68,7 +68,7 @@ Rules:
 
 def run_coding(extracted: dict, retrieved_codes: list[dict], clarification_response: str = "") -> dict:
     """
-    Assign ICD-10 and CPT codes with confidence scores using Claude Sonnet.
+    Assign ICD-10 and CPT codes with confidence scores using Gemini 2.0 Flash.
 
     Args:
         extracted: Dict from extraction agent.
@@ -96,17 +96,20 @@ ambiguous fields and improve confidence in code assignment.
         clarification_section=clarification_section,
     )
 
+    model = genai.GenerativeModel("gemini-2.0-flash")
+
     # Try up to 2 times
     for attempt in range(2):
         try:
-            response = client.messages.create(
-                model="claude-sonnet-4-20250514",
-                max_tokens=4096,
-                temperature=0.1,
-                messages=[{"role": "user", "content": prompt}],
+            response = model.generate_content(
+                prompt,
+                generation_config=genai.GenerationConfig(
+                    temperature=0.1,
+                    max_output_tokens=4096,
+                ),
             )
 
-            response_text = response.content[0].text.strip()
+            response_text = response.text.strip()
 
             # Clean potential markdown wrapping
             if response_text.startswith("```"):
@@ -171,7 +174,7 @@ def _validate_coding_result(result: dict) -> dict:
 
 def _fallback_coding(extracted: dict, retrieved_codes: list[dict]) -> dict:
     """
-    Fallback coding when Claude API fails.
+    Fallback coding when Gemini API fails.
     Uses retrieved codes with low confidence and recommends escalation.
     """
     icd10_codes = []
@@ -193,6 +196,6 @@ def _fallback_coding(extracted: dict, retrieved_codes: list[dict]) -> dict:
         "icd10_codes": icd10_codes[:5],
         "cpt_codes": cpt_codes[:3],
         "overall_confidence": 0.30,
-        "coding_notes": "FALLBACK: Claude API unavailable. Codes assigned from RAG retrieval only. Manual review required.",
+        "coding_notes": "FALLBACK: Gemini API unavailable. Codes assigned from RAG retrieval only. Manual review required.",
         "recommend_escalation": True,
     }

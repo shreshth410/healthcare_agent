@@ -10,7 +10,7 @@ A multi-agent AI system that takes clinical notes as input, extracts medical inf
        ▼
 ┌──────────────┐     ┌──────────────┐     ┌────────────┐     ┌──────────────┐     ┌───────────┐
 │  Extraction  │────▶│  Enrichment  │────▶│   Coding   │────▶│  Compliance  │────▶│   Audit   │
-│  (Gemini)    │     │  (ChromaDB)  │     │  (Claude)  │     │  (Claude)    │     │  (SQLite) │
+│  (Gemini)    │     │  (ChromaDB)  │     │  (Gemini)  │     │  (Gemini)    │     │  (SQLite) │
 └──────────────┘     └──────────────┘     └────────────┘     └──────┬───────┘     └───────────┘
                                                                     │
                                                           ┌────────┼────────┐
@@ -23,8 +23,7 @@ A multi-agent AI system that takes clinical notes as input, extracts medical inf
 | Component | Technology |
 |-----------|-----------|
 | Agent Orchestration | LangGraph (StateGraph) |
-| Primary LLM | Claude Sonnet (claude-sonnet-4-20250514) |
-| Secondary LLM | Gemini 1.5 Flash |
+| LLM | Gemini 2.0 Flash |
 | Vector Database | ChromaDB (persistent, local) |
 | Embeddings | sentence-transformers (all-MiniLM-L6-v2) |
 | Backend | FastAPI |
@@ -40,8 +39,7 @@ A multi-agent AI system that takes clinical notes as input, extracts medical inf
 git clone <repo-url>
 cd healthcare-agent
 cp .env.example .env
-# Edit .env and add your API keys:
-#   ANTHROPIC_API_KEY=sk-ant-...
+# Edit .env and add your API key:
 #   GOOGLE_API_KEY=AI...
 ```
 
@@ -76,7 +74,7 @@ Open **http://localhost:8501** in your browser.
 ## Running with Docker
 
 ```bash
-# Create .env file with your API keys first
+# Create .env file with your API key first
 cp .env.example .env
 
 # Build and start
@@ -135,10 +133,10 @@ curl -X POST http://localhost:8000/analyze \
 healthcare-agent/
 ├── agents/
 │   ├── orchestrator.py         # LangGraph pipeline definition
-│   ├── extraction_agent.py     # Gemini Flash — clinical data extraction
+│   ├── extraction_agent.py     # Gemini 2.0 Flash — clinical data extraction
 │   ├── enrichment_agent.py     # ChromaDB RAG retrieval
-│   ├── coding_agent.py         # Claude Sonnet — code assignment
-│   ├── compliance_agent.py     # Claude Sonnet — guardrails & compliance
+│   ├── coding_agent.py         # Gemini 2.0 Flash — code assignment
+│   ├── compliance_agent.py     # Gemini 2.0 Flash — guardrails & compliance
 │   └── audit_agent.py          # SQLite audit logging
 ├── knowledge_base/
 │   ├── build_db.py             # Build ChromaDB from 200 inline codes
@@ -166,7 +164,7 @@ healthcare-agent/
 
 ## Key Design Decisions
 
-- **Dual LLM Strategy**: Gemini Flash for cheap extraction, Claude Sonnet for expensive reasoning
+- **Unified LLM**: Gemini 2.0 Flash for all agents — extraction, coding, and compliance
 - **Hard Guardrail**: No code is ever assigned with confidence below 0.60 — the compliance agent enforces this
 - **Graceful Degradation**: Every agent has a fallback path if the LLM API fails
 - **Complete Audit Trail**: Every session is logged to SQLite regardless of outcome

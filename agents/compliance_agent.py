@@ -1,6 +1,6 @@
 """
 Compliance Agent
-Uses Claude Sonnet for:
+Uses Gemini 2.0 Flash for:
 1. Ambiguity handling — generating targeted clarification questions
 2. Guardrail enforcement — escalating low-confidence cases
 3. Compliance checking — verifying codes match documented findings
@@ -8,12 +8,12 @@ Uses Claude Sonnet for:
 
 import os
 import json
-from anthropic import Anthropic
+import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
 
-client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.60"))
 
@@ -97,17 +97,20 @@ def run_compliance(
         confidence_threshold=CONFIDENCE_THRESHOLD,
     )
 
+    model = genai.GenerativeModel("gemini-2.0-flash")
+
     # Try up to 2 times
     for attempt in range(2):
         try:
-            response = client.messages.create(
-                model="claude-sonnet-4-20250514",
-                max_tokens=4096,
-                temperature=0.1,
-                messages=[{"role": "user", "content": prompt}],
+            response = model.generate_content(
+                prompt,
+                generation_config=genai.GenerationConfig(
+                    temperature=0.1,
+                    max_output_tokens=4096,
+                ),
             )
 
-            response_text = response.content[0].text.strip()
+            response_text = response.text.strip()
 
             # Clean potential markdown wrapping
             if response_text.startswith("```"):
@@ -205,7 +208,7 @@ def _fallback_compliance(
     ambiguous_fields: list,
 ) -> dict:
     """
-    Fallback compliance result when Claude API fails.
+    Fallback compliance result when Gemini API fails.
     Applies hard guardrails without LLM reasoning.
     """
     approved = {

@@ -30,7 +30,7 @@ A multi-agent AI system for automated ICD-10 and CPT medical coding. The system 
 │  ┌──────────┐   ┌──────────┐   ┌────────┐   ┌──────────┐      │
 │  │Extraction│──▶│Enrichment│──▶│ Coding │──▶│Compliance│      │
 │  │  Agent   │   │  Agent   │   │ Agent  │   │  Agent   │      │
-│  │(Gemini)  │   │(ChromaDB)│   │(Claude)│   │ (Claude) │      │
+│  │(Gemini)  │   │(ChromaDB)│   │(Gemini)│   │ (Gemini) │      │
 │  └──────────┘   └────┬─────┘   └────────┘   └────┬─────┘      │
 │                      │                            │             │
 │                      │                     ┌──────┴──────┐      │
@@ -55,10 +55,10 @@ A multi-agent AI system for automated ICD-10 and CPT medical coding. The system 
 
 | Agent | LLM | Purpose |
 |-------|-----|---------|
-| Extraction | Gemini 1.5 Flash | Extract symptoms, vitals, history, medications from notes |
+| Extraction | Gemini 2.0 Flash | Extract symptoms, vitals, history, medications from notes |
 | Enrichment | None (RAG) | Retrieve candidate ICD-10/CPT codes from ChromaDB |
-| Coding | Claude Sonnet | Assign codes with confidence scores and reasoning |
-| Compliance | Claude Sonnet | Guardrails, ambiguity flagging, code verification |
+| Coding | Gemini 2.0 Flash | Assign codes with confidence scores and reasoning |
+| Compliance | Gemini 2.0 Flash | Guardrails, ambiguity flagging, code verification |
 | Audit | None (SQLite) | Log every session for complete audit trail |
 
 ## Data Flow

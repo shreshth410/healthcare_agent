@@ -47,7 +47,7 @@ def run_extraction(raw_note: str) -> dict:
     """
     prompt = EXTRACTION_PROMPT.format(note=raw_note)
 
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    model = genai.GenerativeModel("gemini-2.0-flash")
 
     # Try up to 2 times (initial + 1 retry)
     for attempt in range(2):
