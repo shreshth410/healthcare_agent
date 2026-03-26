@@ -1,17 +1,20 @@
 """
 Coding Agent
-Uses Claude Sonnet to assign ICD-10 and CPT codes with confidence scores
+Uses Groq (llama-3.3-70b-versatile) to assign ICD-10 and CPT codes with confidence scores
 based on extracted clinical data and retrieved candidate codes.
 """
 
 import os
 import json
-from anthropic import Anthropic
+from groq import Groq
 from dotenv import load_dotenv
 
-load_dotenv()
+# Ensure .env is loaded from the project root regardless of cwd
+_PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+load_dotenv(os.path.join(_PROJECT_ROOT, ".env"))
 
-client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+_MODEL = "llama-3.3-70b-versatile"
 
 CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.60"))
 
@@ -68,7 +71,7 @@ Rules:
 
 def run_coding(extracted: dict, retrieved_codes: list[dict], clarification_response: str = "") -> dict:
     """
-    Assign ICD-10 and CPT codes with confidence scores using Claude Sonnet.
+    Assign ICD-10 and CPT codes with confidence scores using Groq.
 
     Args:
         extracted: Dict from extraction agent.
@@ -99,14 +102,14 @@ ambiguous fields and improve confidence in code assignment.
     # Try up to 2 times
     for attempt in range(2):
         try:
-            response = client.messages.create(
-                model="claude-sonnet-4-20250514",
-                max_tokens=4096,
-                temperature=0.1,
+            response = _client.chat.completions.create(
+                model=_MODEL,
                 messages=[{"role": "user", "content": prompt}],
+                temperature=0.1,
+                max_tokens=4096,
             )
 
-            response_text = response.content[0].text.strip()
+            response_text = response.choices[0].message.content.strip()
 
             # Clean potential markdown wrapping
             if response_text.startswith("```"):
@@ -130,9 +133,10 @@ ambiguous fields and improve confidence in code assignment.
 
         except Exception as e:
             if attempt == 0:
-                print(f"[CodingAgent] API error (attempt 1), retrying: {e}")
+                print(f"[CodingAgent] ⚠ API error (attempt 1) [{type(e).__name__}]: {e}")
                 continue
-            print(f"[CodingAgent] API error (attempt 2), using fallback: {e}")
+            print(f"[CodingAgent] ❌ API error (attempt 2) [{type(e).__name__}]: {e}")
+            print(f"[CodingAgent] ❌ Falling back to RAG-only coding. Check your GROQ_API_KEY.")
             return _fallback_coding(extracted, retrieved_codes)
 
     return _fallback_coding(extracted, retrieved_codes)
@@ -171,7 +175,7 @@ def _validate_coding_result(result: dict) -> dict:
 
 def _fallback_coding(extracted: dict, retrieved_codes: list[dict]) -> dict:
     """
-    Fallback coding when Claude API fails.
+    Fallback coding when Gemini API fails.
     Uses retrieved codes with low confidence and recommends escalation.
     """
     icd10_codes = []
@@ -193,6 +197,6 @@ def _fallback_coding(extracted: dict, retrieved_codes: list[dict]) -> dict:
         "icd10_codes": icd10_codes[:5],
         "cpt_codes": cpt_codes[:3],
         "overall_confidence": 0.30,
-        "coding_notes": "FALLBACK: Claude API unavailable. Codes assigned from RAG retrieval only. Manual review required.",
+        "coding_notes": "FALLBACK: Gemini API unavailable. Codes assigned from RAG retrieval only. Manual review required.",
         "recommend_escalation": True,
     }
