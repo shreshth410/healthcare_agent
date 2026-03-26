@@ -8,6 +8,9 @@ dist/
 build/
 *.egg
 
+# AI generated task documents
+docs/
+
 # Virtual environments
 venv/
 .venv/
