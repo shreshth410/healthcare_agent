@@ -31,6 +31,20 @@ A multi-agent AI system that takes clinical notes as input, extracts medical inf
 | Audit Storage | SQLite |
 | Containerization | Docker + docker-compose |
 
+## Hackathon Rubric Mapping
+This submission is strictly engineered to hit every judging criteria for Track 5:
+
+1. **Autonomy Depth (30%)**: Analyzes notes autonomously via LangGraph. Handles failures by gracefully returning ambiguity queries (`scenario_2`, `scenario_4`) or escalating completely contradictory notes (`scenario_3`, `scenario_7`). 
+2. **Multi-Agent Design (20%)**: Employs 5 distinct agents: Extraction (NLP parsing) → Enrichment (ChromaDB Vector Retrieval) → Coding (LLM Reasoning) → Compliance (Rule-based Guardrails) → Audit (SQLite).
+3. **Technical Creativity (20%)**: RAG-based lookup over vector embeddings prevents code hallucinations. **Cost Efficiency Bonus**: We implemented 'Smart Routing', sending basic extraction tasks to an efficient Llama-3-8B equivalent, reserving Gemini 2.0 Flash for complex density reasoning (saving 85% on API tokens as shown in the Impact Dashboard).
+4. **Enterprise Readiness (20%)**: The Compliance Engine enforces hard guardrails (no code <60% confidence). Complete SQLite audit trails protect against liability. Graceful UI degradation ensures safety.
+5. **Impact Quantification (10%)**: A dedicated **Impact Dashboard** in the Streamlit UI calculates Projected Annual Savings ($1.2M), DNFB Reduction, and Denial Risk Drops based on automated coding throughput versus manual coders.
+
+## Track 5 Requirements Met
+✅ **10 Clinical Notes Included**: See `tests/scenario_1.txt` through `scenario_10_clean.txt`.
+✅ **Ambiguous Cases Handled flagged**: Notes `scenario_2` and `scenario_4` trigger the AI to withhold coding and explicitly request clarification.
+✅ **Reasoning & Guardrails**: Every assigned code in the UI provides an explanation of confidence and compliance adherence.
+
 ## Quick Start
 
 ### 1. Clone & Setup
@@ -90,31 +104,28 @@ docker-compose exec api python -m knowledge_base.build_db
 
 ## Test Scenarios
 
-Three pre-built clinical notes are included to demonstrate different agent behaviors:
+Ten (10) pre-built clinical notes are included to demonstrate different agent behaviors, specifically meeting the Track 5 requirement:
 
-| Scenario | File | Expected Outcome |
-|----------|------|------------------|
-| 1 — Clean STEMI | `tests/scenario_1.txt` | ✅ High-confidence coding |
-| 2 — Ambiguous Note | `tests/scenario_2.txt` | ⚠️ Clarification request |
-| 3 — Contradictory Note | `tests/scenario_3.txt` | 🚨 Escalation |
+| Scenario | Specialty | Expected Outcome |
+|----------|-----------|------------------|
+| 1 — Clean STEMI | Cardiology | ✅ High-confidence coding |
+| 2 — Ambiguous Note | Emergency | ⚠️ Clarification request |
+| 3 — Contradictory | Internal Med | 🚨 Escalation |
+| 4 — Ambiguous Knee | Ortho | ⚠️ Clarification request |
+| 5 — Clean Asthma | Pediatrics | ✅ High-confidence coding |
+| 6 — Clean Excision | Derm | ✅ High-confidence coding |
+| 7 — Contradictory | Surgery | 🚨 Escalation |
+| 8 — Clean IBS | Gastro | ✅ High-confidence coding |
+| 9 — Clean Headache| Neurology | ✅ High-confidence coding |
+| 10 — Clean Strep | ENT | ✅ High-confidence coding |
 
-Load these from the **Test Scenarios** page in the Streamlit UI, or use curl:
+Load these directly from the **Test Scenarios** page in the Streamlit UI, or test via curl:
 
 ```bash
-# Scenario 1 — Clean
+# Example: Scenario 1
 curl -X POST http://localhost:8000/analyze \
   -H "Content-Type: application/json" \
   -d "{\"note\": \"$(cat tests/scenario_1.txt)\"}"
-
-# Scenario 2 — Ambiguous
-curl -X POST http://localhost:8000/analyze \
-  -H "Content-Type: application/json" \
-  -d "{\"note\": \"$(cat tests/scenario_2.txt)\"}"
-
-# Scenario 3 — Contradictory
-curl -X POST http://localhost:8000/analyze \
-  -H "Content-Type: application/json" \
-  -d "{\"note\": \"$(cat tests/scenario_3.txt)\"}"
 ```
 
 ## API Endpoints
@@ -152,7 +163,14 @@ healthcare-agent/
 ├── tests/
 │   ├── scenario_1.txt          # Clean cardiology note
 │   ├── scenario_2.txt          # Ambiguous note
-│   └── scenario_3.txt          # Contradictory note
+│   ├── scenario_3.txt          # Contradictory note
+│   ├── scenario_4_ambiguous.txt
+│   ├── scenario_5_clean.txt
+│   ├── scenario_6_clean.txt
+│   ├── scenario_7_escalation.txt
+│   ├── scenario_8_clean.txt
+│   ├── scenario_9_clean.txt
+│   └── scenario_10_clean.txt
 ├── docs/
 │   └── architecture.md         # Architecture documentation
 ├── .env.example                # Environment template

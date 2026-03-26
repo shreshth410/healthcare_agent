@@ -1,0 +1,24 @@
+HISTORY OF PRESENT ILLNESS:
+Patient is a 72-year-old male with a history of atrial fibrillation, currently on Eliquis, presenting to the Emergency Department with severe right lower quadrant abdominal pain that started 6 hours ago. He reports nausea and one episode of vomiting. Pain is sharp and constant, rated 8/10.
+
+PAST MEDICAL HISTORY:
+1. Paroxysmal atrial fibrillation
+2. Hypertension
+3. Appendectomy (2001)
+
+MEDICATIONS:
+1. Eliquis 5mg BID
+2. Amlodipine 5mg daily
+
+PHYSICAL EXAM:
+Vitals: BP 145/90, HR 110 (irregular), Temp 100.4 F
+Abdomen is rigid with severe tenderness in the right lower quadrant. Rebound tenderness is positive. Rovsing's sign is positive.
+
+IMAGING:
+CT Abdomen/Pelvis with IV contrast demonstrates a dilated, inflamed appendix with surrounding fat stranding, measuring 1.1 cm. No evidence of perforation.
+
+ASSESSMENT AND PLAN:
+1. Acute appendicitis. Given the classic presentation and CT findings, I have consulted General Surgery. The patient is prepped for an emergency appendectomy right now.
+2. Atrial fibrillation on Eliquis. We will continue the Eliquis uninterrupted during the surgery to prevent stroke risk.
+
+CODING NOTE: The history of present illness states the patient had a prior appendectomy in 2001, but the current assessment and imaging diagnose acute appendicitis necessitating an appendectomy today. This is a severe clinical contradiction that must be verified.

@@ -1,0 +1,14 @@
+HISTORY OF PRESENT ILLNESS:
+Patient is a 45-year-old female presenting to the clinic with complaints of knee pain. She states the pain started about 3 weeks ago after she was playing tennis. The pain is described as an intermittent ache that gets worse with climbing stairs. She tried resting it and taking some ibuprofen with minimal relief. 
+
+PHYSICAL EXAMINATION:
+General: Alert and oriented, in no acute distress.
+Musculoskeletal: Examination of the knee reveals mild effusion. There is tenderness to palpation along the joint line. McMurray's test is positive. Lachman test is negative. No obvious gross instability.
+Neurological: Sensation intact. Pulses are 2+ and symmetric.
+
+ASSESSMENT AND PLAN:
+1. Meniscal tear. The patient has classical signs of a meniscal injury. I will order an MRI of the knee to confirm the diagnosis and determine the extent of the tear. 
+2. Recommend continued use of NSAIDs for pain and applying ice.
+3. Patient will follow up in 2 weeks after the MRI is completed. Will discuss surgical vs conservative management options at that time.
+
+NOTE TO CODER: The specific knee (left vs right) and the specific meniscus (medial vs lateral) are not documented in this note.
