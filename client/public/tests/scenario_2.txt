@@ -1,0 +1,40 @@
+HISTORY OF PRESENT ILLNESS:
+Patient is a middle-aged individual presenting with chest pain. Duration of chest pain is not documented. Patient states the pain is "somewhere in the chest" but does not specify exact location or radiation pattern. Onset is unclear — patient says "it started a while ago." No specific aggravating or alleviating factors documented.
+
+Patient reports some difficulty breathing but cannot quantify severity. Denies or is unsure about associated symptoms.
+
+REVIEW OF SYSTEMS:
+Cardiovascular: Chest pain — details as above.
+Respiratory: Some breathing difficulty noted.
+All other systems: Not reviewed.
+
+PAST MEDICAL HISTORY:
+Not provided by patient. Record from previous visits unavailable at time of encounter.
+
+MEDICATIONS:
+Patient states they take "some pills" but cannot name them. Medication reconciliation incomplete.
+
+ALLERGIES: Unknown
+
+VITAL SIGNS:
+- Blood Pressure: 148/88 mmHg
+- Heart Rate: 88 bpm
+- Respiratory Rate: 18 breaths/min
+- Temperature: 98.4°F (36.9°C)
+- SpO2: 96% on room air
+
+PHYSICAL EXAMINATION:
+General: Alert, no acute distress
+Cardiovascular: Regular rate and rhythm
+Respiratory: Clear to auscultation
+Abdomen: Not examined
+Extremities: Not examined
+
+LABORATORY RESULTS:
+Pending at time of documentation.
+
+ECG:
+Not yet performed.
+
+ASSESSMENT AND PLAN:
+Chest pain, unspecified. Recommend further workup including ECG, troponin levels, and comprehensive metabolic panel. Await lab results before determining disposition.

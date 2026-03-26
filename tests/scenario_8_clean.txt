@@ -1,0 +1,34 @@
+CHIEF COMPLAINT:
+Abdominal pain and diarrhea.
+
+HISTORY OF PRESENT ILLNESS:
+The patient is a 28-year-old female presenting to the gastroenterology clinic for evaluation of chronic abdominal pain and diarrhea. She notes the symptoms began insidiously about 6 months ago, mostly crampy lower abdominal pain relieved somewhat by defecation. She is having 4-5 loose to watery bowel movements a day. She denies bloody stools or fever. 
+
+PAST MEDICAL HISTORY:
+1. Migraines, occasionally relieved by Sumatriptan.
+2. Anxiety, currently well controlled.
+
+MEDICATIONS:
+1. Lexapro 10mg daily.
+2. Sumatriptan 50mg PRN.
+
+PHYSICAL EXAMINATION:
+Vitals: BP 118/74, HR 72, RR 16, Temp 98.4 F, Wt 130 lbs.
+General: Well appearing, alert, and oriented.
+Abdomen: Soft, non-distended. Mild tenderness to deep palpation in the bilateral lower quadrants. No rebound or guarding. Bowel sounds are normal.
+Rectal Exam: Normal sphincter tone. No masses or hemorrhoids appreciated. Hemoccult test is negative for occult blood.
+
+LABORATORY AND DIAGNOSTIC RESULTS:
+- CBC: WBC 7.2, Hgb 13.8 (normal), Plt 280
+- BMP: All values within normal limits. 
+- CRP: Normal
+- Tissue Transglutaminase IgA (tTG-IgA): Negative
+- Stool cultures (C. diff, Salmonella, Shigella, Campylobacter): Negative
+- Colonoscopy performed two weeks ago showed normal colonic mucosa with random biopsies returning normal histology.
+
+ASSESSMENT AND PLAN:
+1. Irritable Bowel Syndrome with Diarrhea (IBS-D). Symptoms and negative workup are consistent with this diagnosis. Discussed the diagnosis, pathophysiology, and natural history with the patient.
+2. Recommend symptom management with Loperamide 2mg as needed for diarrhea.
+3. Will initiate a trial of Dicyclomine 20mg four times a day as needed for severe abdominal cramping.
+4. Referral to a dietitian for a low-FODMAP diet education.
+Follow-up in 8 weeks to assess progress.

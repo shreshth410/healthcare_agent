@@ -1,0 +1,67 @@
+HISTORY OF PRESENT ILLNESS:
+Mrs. Patricia Williams is a 62-year-old female who presents with a complex and contradictory clinical picture. 
+
+In the triage note, the patient reports "no chest pain" and states she feels "perfectly fine" and is only here because her daughter insisted. However, upon physician evaluation, the patient describes "crushing chest pain, 8/10 severity, substernal, radiating to both arms" that has been present for approximately 6 hours. When asked about the discrepancy, the patient states "I didn't want to worry the triage nurse."
+
+The patient alternately reports that she has been experiencing shortness of breath for 3 days and then states she has had "no breathing problems whatsoever." She reports nausea but also states she "ate a full dinner without any issues 30 minutes ago."
+
+REVIEW OF SYSTEMS:
+Cardiovascular: Contradictory — see HPI. Both chest pain and no chest pain documented.
+Respiratory: Contradictory — both dyspnea and no dyspnea reported.
+GI: Nausea reported but also reports normal appetite and recent meal.
+All other systems: Patient declines to answer further questions.
+
+PAST MEDICAL HISTORY:
+Patient states: "No cardiac history. Never had any heart problems."
+However, medication list (confirmed by pharmacy records) includes:
+1. Metoprolol succinate 50mg daily (beta-blocker — typically prescribed for cardiac conditions)
+2. Aspirin 81mg daily (antiplatelet)
+3. Clopidogrel 75mg daily (antiplatelet — typically prescribed post-cardiac event or stent)
+4. Lisinopril 10mg daily (ACE inhibitor)
+5. Atorvastatin 80mg daily (high-dose statin — suggests significant cardiovascular risk)
+6. Nitroglycerin 0.4mg SL PRN (used for angina)
+
+This medication profile is inconsistent with the reported history of "no cardiac problems."
+
+ALLERGIES: Patient reports allergy to "all pain medications" but has been taking aspirin without issues.
+
+VITAL SIGNS:
+- Blood Pressure: 92/58 mmHg (hypotensive)
+- Heart Rate: 110 bpm (tachycardic)
+- Respiratory Rate: 24 breaths/min (tachypneic)
+- Temperature: 99.1°F (37.3°C)
+- SpO2: 91% on room air (borderline hypoxic)
+
+PHYSICAL EXAMINATION:
+General: Patient appears uncomfortable but insists she is "fine"
+Cardiovascular: Tachycardic, irregular rhythm noted, S3 gallop present
+Respiratory: Bilateral basilar crackles noted
+Abdomen: Not examined per patient request
+Extremities: 2+ bilateral lower extremity edema noted
+
+LABORATORY RESULTS:
+- Troponin I: 2.8 ng/mL (elevated, normal <0.04) — indicates myocardial injury
+- CK-MB: 42 U/L (elevated, normal <25)
+- BNP: 1,850 pg/mL (significantly elevated — suggests heart failure)
+- CBC: WBC 14.1 (elevated), Hgb 10.2 (low), Plt 198
+- BMP: Na 131 (low), K 5.2 (borderline high), Cr 1.8 (elevated), Glucose 245
+
+ECG:
+12-lead ECG shows normal sinus rhythm with tachycardia. No acute ST changes. 
+NOTE: This is contradictory with the elevated troponin and clinical presentation. 
+The normal ECG in the setting of elevated troponin may suggest:
+- NSTEMI (non-ST elevation MI)
+- Demand ischemia
+- Myocarditis
+- Other causes of troponin elevation
+
+IMAGING:
+Chest X-ray: Bilateral pleural effusions. Cardiomegaly. Pulmonary vascular congestion consistent with heart failure.
+
+ASSESSMENT AND PLAN:
+Complex case with significant contradictions in patient history. Elevated cardiac biomarkers with normal ECG. Patient's reported history inconsistent with medication profile. Clinical picture concerning but difficult to assess given unreliable history. Consider cardiology consult for further evaluation. 
+
+PROCEDURES:
+1. 12-lead ECG performed
+2. Chest X-ray performed
+3. Blood work drawn and sent
