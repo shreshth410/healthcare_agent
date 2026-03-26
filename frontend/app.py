@@ -29,34 +29,48 @@ st.markdown("""
     .main-header {
         font-size: 2.2rem;
         font-weight: 700;
-        color: #1a5276;
+        background: linear-gradient(90deg, #2e86c1, #1abc9c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         margin-bottom: 0.5rem;
     }
     .sub-header {
         font-size: 1.0rem;
-        color: #5d6d7e;
+        opacity: 0.75;
         margin-bottom: 2rem;
     }
     .code-card {
-        background: #f8f9fa;
-        border-left: 4px solid #2e86c1;
-        padding: 12px 16px;
-        margin: 8px 0;
+        border-left: 5px solid #2e86c1;
+        padding: 14px 18px;
+        margin: 10px 0;
         border-radius: 0 8px 8px 0;
+        border: 1px solid rgba(128, 128, 128, 0.3);
+        border-left: 5px solid #2e86c1;
     }
     .code-card-escalated {
-        border-left-color: #e74c3c;
+        border-left-color: #e74c3c !important;
+        border-color: rgba(231, 76, 60, 0.4);
     }
     .code-card-warning {
-        border-left-color: #f39c12;
+        border-left-color: #f39c12 !important;
+        border-color: rgba(243, 156, 18, 0.4);
     }
-    .confidence-high { color: #27ae60; font-weight: bold; }
-    .confidence-med { color: #f39c12; font-weight: bold; }
+    .confidence-high { color: #2ecc71; font-weight: bold; }
+    .confidence-med { color: #f1c40f; font-weight: bold; }
     .confidence-low { color: #e74c3c; font-weight: bold; }
-    .session-green { background-color: #d5f5e3; }
-    .session-yellow { background-color: #fdebd0; }
-    .session-red { background-color: #fadbd8; }
-    .stMetric { background: #eaf2f8; border-radius: 10px; padding: 10px; }
+    /* Make Streamlit metric cards visible on any theme */
+    [data-testid="stMetric"] {
+        border: 1px solid rgba(128, 128, 128, 0.3);
+        border-radius: 10px;
+        padding: 12px 16px;
+    }
+    [data-testid="stMetricValue"] {
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+    [data-testid="stMetricDelta"] {
+        font-size: 0.95rem;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -149,7 +163,7 @@ st.sidebar.markdown(
     """
     <div style='font-size: 0.8rem; color: #888;'>
     <b>Powered by:</b><br>
-    • Gemini 2.0 Flash (all agents)<br>
+    • Groq / Llama 3.3 70B (all agents)<br>
     • ChromaDB + sentence-transformers (RAG)<br>
     • LangGraph (orchestration)
     </div>

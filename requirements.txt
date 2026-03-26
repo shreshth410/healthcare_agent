@@ -10,4 +10,4 @@ streamlit
 pandas
 python-dotenv
 httpx
-google-generativeai
+groq

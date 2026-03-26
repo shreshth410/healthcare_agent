@@ -1,6 +1,6 @@
 """
 Compliance Agent
-Uses Gemini 2.0 Flash for:
+Uses Groq (llama-3.3-70b-versatile) for:
 1. Ambiguity handling — generating targeted clarification questions
 2. Guardrail enforcement — escalating low-confidence cases
 3. Compliance checking — verifying codes match documented findings
@@ -8,12 +8,15 @@ Uses Gemini 2.0 Flash for:
 
 import os
 import json
-import google.generativeai as genai
+from groq import Groq
 from dotenv import load_dotenv
 
-load_dotenv()
+# Ensure .env is loaded from the project root regardless of cwd
+_PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+load_dotenv(os.path.join(_PROJECT_ROOT, ".env"))
 
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+_MODEL = "llama-3.3-70b-versatile"
 
 CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.60"))
 
@@ -97,20 +100,17 @@ def run_compliance(
         confidence_threshold=CONFIDENCE_THRESHOLD,
     )
 
-    model = genai.GenerativeModel("gemini-2.0-flash")
-
     # Try up to 2 times
     for attempt in range(2):
         try:
-            response = model.generate_content(
-                prompt,
-                generation_config=genai.GenerationConfig(
-                    temperature=0.1,
-                    max_output_tokens=4096,
-                ),
+            response = _client.chat.completions.create(
+                model=_MODEL,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.1,
+                max_tokens=4096,
             )
 
-            response_text = response.text.strip()
+            response_text = response.choices[0].message.content.strip()
 
             # Clean potential markdown wrapping
             if response_text.startswith("```"):
@@ -132,9 +132,10 @@ def run_compliance(
 
         except Exception as e:
             if attempt == 0:
-                print(f"[ComplianceAgent] API error (attempt 1), retrying: {e}")
+                print(f"[ComplianceAgent] ⚠ API error (attempt 1) [{type(e).__name__}]: {e}")
                 continue
-            print(f"[ComplianceAgent] API error (attempt 2), using fallback: {e}")
+            print(f"[ComplianceAgent] ❌ API error (attempt 2) [{type(e).__name__}]: {e}")
+            print(f"[ComplianceAgent] ❌ Falling back to hard guardrails only. Check your GROQ_API_KEY.")
             return _fallback_compliance(assigned_codes, needs_clarification, ambiguous_fields)
 
     return _fallback_compliance(assigned_codes, needs_clarification, ambiguous_fields)

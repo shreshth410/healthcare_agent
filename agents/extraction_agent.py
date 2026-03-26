@@ -1,16 +1,19 @@
 """
 Extraction Agent
-Uses Gemini Flash to extract structured medical information from clinical notes.
+Uses Groq (llama-3.3-70b-versatile) to extract structured medical information from clinical notes.
 """
 
 import os
 import json
-import google.generativeai as genai
+from groq import Groq
 from dotenv import load_dotenv
 
-load_dotenv()
+# Ensure .env is loaded from the project root regardless of cwd
+_PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+load_dotenv(os.path.join(_PROJECT_ROOT, ".env"))
 
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+_MODEL = "llama-3.3-70b-versatile"
 
 EXTRACTION_PROMPT = """You are a medical information extraction specialist. Analyze the following clinical note and extract structured information.
 
@@ -37,7 +40,7 @@ CLINICAL NOTE:
 
 def run_extraction(raw_note: str) -> dict:
     """
-    Extract structured medical information from a clinical note using Gemini Flash.
+    Extract structured medical information from a clinical note using Groq.
 
     Args:
         raw_note: The raw clinical note text.
@@ -47,20 +50,17 @@ def run_extraction(raw_note: str) -> dict:
     """
     prompt = EXTRACTION_PROMPT.format(note=raw_note)
 
-    model = genai.GenerativeModel("gemini-2.0-flash")
-
     # Try up to 2 times (initial + 1 retry)
     for attempt in range(2):
         try:
-            response = model.generate_content(
-                prompt,
-                generation_config=genai.GenerationConfig(
-                    temperature=0.1,
-                    max_output_tokens=4096,
-                ),
+            response = _client.chat.completions.create(
+                model=_MODEL,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.1,
+                max_tokens=4096,
             )
 
-            response_text = response.text.strip()
+            response_text = response.choices[0].message.content.strip()
 
             # Clean potential markdown wrapping
             if response_text.startswith("```"):
@@ -94,9 +94,10 @@ def run_extraction(raw_note: str) -> dict:
 
         except Exception as e:
             if attempt == 0:
-                print(f"[ExtractionAgent] API error (attempt 1), retrying: {e}")
+                print(f"[ExtractionAgent] ⚠ API error (attempt 1) [{type(e).__name__}]: {e}")
                 continue
-            print(f"[ExtractionAgent] API error (attempt 2), using fallback: {e}")
+            print(f"[ExtractionAgent] ❌ API error (attempt 2) [{type(e).__name__}]: {e}")
+            print(f"[ExtractionAgent] ❌ Falling back to keyword extraction. Check your GROQ_API_KEY.")
             return _fallback_extraction(raw_note)
 
     return _fallback_extraction(raw_note)

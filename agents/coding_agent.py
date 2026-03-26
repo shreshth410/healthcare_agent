@@ -1,17 +1,20 @@
 """
 Coding Agent
-Uses Gemini 2.0 Flash to assign ICD-10 and CPT codes with confidence scores
+Uses Groq (llama-3.3-70b-versatile) to assign ICD-10 and CPT codes with confidence scores
 based on extracted clinical data and retrieved candidate codes.
 """
 
 import os
 import json
-import google.generativeai as genai
+from groq import Groq
 from dotenv import load_dotenv
 
-load_dotenv()
+# Ensure .env is loaded from the project root regardless of cwd
+_PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+load_dotenv(os.path.join(_PROJECT_ROOT, ".env"))
 
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+_MODEL = "llama-3.3-70b-versatile"
 
 CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.60"))
 
@@ -68,7 +71,7 @@ Rules:
 
 def run_coding(extracted: dict, retrieved_codes: list[dict], clarification_response: str = "") -> dict:
     """
-    Assign ICD-10 and CPT codes with confidence scores using Gemini 2.0 Flash.
+    Assign ICD-10 and CPT codes with confidence scores using Groq.
 
     Args:
         extracted: Dict from extraction agent.
@@ -96,20 +99,17 @@ ambiguous fields and improve confidence in code assignment.
         clarification_section=clarification_section,
     )
 
-    model = genai.GenerativeModel("gemini-2.0-flash")
-
     # Try up to 2 times
     for attempt in range(2):
         try:
-            response = model.generate_content(
-                prompt,
-                generation_config=genai.GenerationConfig(
-                    temperature=0.1,
-                    max_output_tokens=4096,
-                ),
+            response = _client.chat.completions.create(
+                model=_MODEL,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.1,
+                max_tokens=4096,
             )
 
-            response_text = response.text.strip()
+            response_text = response.choices[0].message.content.strip()
 
             # Clean potential markdown wrapping
             if response_text.startswith("```"):
@@ -133,9 +133,10 @@ ambiguous fields and improve confidence in code assignment.
 
         except Exception as e:
             if attempt == 0:
-                print(f"[CodingAgent] API error (attempt 1), retrying: {e}")
+                print(f"[CodingAgent] ⚠ API error (attempt 1) [{type(e).__name__}]: {e}")
                 continue
-            print(f"[CodingAgent] API error (attempt 2), using fallback: {e}")
+            print(f"[CodingAgent] ❌ API error (attempt 2) [{type(e).__name__}]: {e}")
+            print(f"[CodingAgent] ❌ Falling back to RAG-only coding. Check your GROQ_API_KEY.")
             return _fallback_coding(extracted, retrieved_codes)
 
     return _fallback_coding(extracted, retrieved_codes)
