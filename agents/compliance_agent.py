@@ -204,14 +204,27 @@ def _validate_compliance_result(result: dict, assigned_codes: dict, needs_clarif
 
     result["approved_codes"] = approved
 
-    # Enforce escalation if overall confidence is below threshold
-    if approved.get("overall_confidence", 0.0) < CONFIDENCE_THRESHOLD:
+    # Enforce escalation ONLY by hard guardrails (confidence threshold) or documented contradictions
+    overall_conf = approved.get("overall_confidence", 0.0)
+    
+    if overall_conf < CONFIDENCE_THRESHOLD:
+        # Hard guardrail: insufficient confidence
         result["escalated"] = True
-        if not result["escalation_reason"]:
-            result["escalation_reason"] = (
-                f"Overall confidence {approved['overall_confidence']:.2f} "
-                f"is below the acceptable threshold of {CONFIDENCE_THRESHOLD}."
-            )
+        result["escalation_reason"] = (
+            f"Overall confidence {overall_conf:.2f} "
+            f"is below the acceptable threshold of {CONFIDENCE_THRESHOLD}."
+        )
+    else:
+        # Confidence is sufficient. Only escalate if there are documented contradictions.
+        reason = result.get("escalation_reason", "").lower()
+        has_contradiction = "contradict" in reason or "conflict" in reason
+        
+        if has_contradiction:
+            result["escalated"] = True
+        else:
+            # Clear escalation — confidence is good and no contradictions
+            result["escalated"] = False
+            result["escalation_reason"] = ""
 
     # If escalated, override clarification
     if result["escalated"]:

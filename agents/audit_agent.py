@@ -154,6 +154,41 @@ def get_session(session_id: str) -> dict | None:
         return None
 
 
+def delete_session(session_id: str) -> bool:
+    """
+    Delete a session from the audit database.
+
+    Args:
+        session_id: UUID of the session to delete.
+
+    Returns:
+        True if deletion was successful, False otherwise.
+    """
+    try:
+        conn = _get_connection()
+        _ensure_table(conn)
+
+        cursor = conn.execute(
+            "DELETE FROM coding_sessions WHERE session_id = ?",
+            (session_id,),
+        )
+        conn.commit()
+        deleted = cursor.rowcount > 0
+        conn.close()
+
+        if deleted:
+            print(f"[AuditAgent] Session {session_id} deleted successfully")
+        else:
+            print(f"[AuditAgent] Session {session_id} not found for deletion")
+
+        return deleted
+
+    except Exception as e:
+        print(f"[AuditAgent] Error deleting session {session_id}: {e}")
+        return False
+
+
+
 def get_recent_sessions(limit: int = 20) -> list[dict]:
     """
     Retrieve the most recent sessions from the audit database.
@@ -171,7 +206,8 @@ def get_recent_sessions(limit: int = 20) -> list[dict]:
         cursor = conn.execute(
             """
             SELECT session_id, timestamp, overall_confidence,
-                   needs_clarification, escalated, raw_note_preview
+                   needs_clarification, escalated, raw_note_preview,
+                   final_codes
             FROM coding_sessions
             ORDER BY timestamp DESC
             LIMIT ?
@@ -183,6 +219,17 @@ def get_recent_sessions(limit: int = 20) -> list[dict]:
 
         sessions = []
         for row in rows:
+            # Parse final_codes to count ICD-10 and CPT codes
+            final_codes = {}
+            if row["final_codes"]:
+                try:
+                    final_codes = json.loads(row["final_codes"])
+                except (json.JSONDecodeError, TypeError):
+                    pass
+            
+            icd10_count = len(final_codes.get("icd10_codes", []))
+            cpt_count = len(final_codes.get("cpt_codes", []))
+            
             sessions.append({
                 "session_id": row["session_id"],
                 "timestamp": row["timestamp"],
@@ -190,6 +237,8 @@ def get_recent_sessions(limit: int = 20) -> list[dict]:
                 "needs_clarification": bool(row["needs_clarification"]),
                 "escalated": bool(row["escalated"]),
                 "raw_note_preview": row["raw_note_preview"],
+                "icd10_count": icd10_count,
+                "cpt_count": cpt_count,
             })
 
         return sessions

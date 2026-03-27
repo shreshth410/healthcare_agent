@@ -1,6 +1,6 @@
 export const API_BASE = "http://localhost:8000";
 
-export async function apiCall(method: "GET" | "POST", endpoint: string, data?: any) {
+export async function apiCall(method: "GET" | "POST" | "DELETE", endpoint: string, data?: any) {
   const url = `${API_BASE}${endpoint}`;
   try {
     const response = await fetch(url, {
