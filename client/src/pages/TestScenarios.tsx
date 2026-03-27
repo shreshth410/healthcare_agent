@@ -2,6 +2,8 @@
 import { Hero } from "../components/Hero";
 import { useAppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { X, FileText, Eye } from "lucide-react";
 import clsx from "clsx";
 
 const SCENARIOS = [
@@ -76,12 +78,49 @@ const SCENARIOS = [
     codes: ["K58.0"],
     expect: "System Expected Logic: Fast-track validation sequence.",
     file: "/tests/scenario_8_clean.txt",
+  },
+  {
+    key: "sc_9", tag_cls: "sc-tag-clean", tag: "Standard Pass",
+    title: "Neurology Assessment",
+    desc: "42-year-old male with recurring tension-type headaches requiring preventive intervention.",
+    meta: ["42M", "Neurology", "Clean Logic"],
+    codes: ["G44.1", "90834"],
+    expect: "System Expected Logic: Validated tension headache coding with preventive strategy.",
+    file: "/tests/scenario_9_clean.txt",
+  },
+  {
+    key: "sc_10", tag_cls: "sc-tag-clean", tag: "Standard Pass",
+    title: "ENT & Infectious Disease",
+    desc: "19-year-old college student with acute streptococcal pharyngitis and positive rapid strep test.",
+    meta: ["19M", "ENT/ID", "Clean Logic"],
+    codes: ["J02.0", "92004"],
+    expect: "System Expected Logic: Confirmed strep infection with allergy-appropriate antibiotic coding.",
+    file: "/tests/scenario_10_clean.txt",
   }
 ];
 
 export function TestScenarios() {
   const { setInjectedNote } = useAppContext();
   const navigate = useNavigate();
+  const [expandedKey, setExpandedKey] = useState<string | null>(null);
+  const [scenarioContent, setScenarioContent] = useState<Record<string, string>>({});
+
+  const loadScenario = async (key: string, fileUrl: string) => {
+    if (scenarioContent[key]) return;
+    try {
+      const res = await fetch(fileUrl);
+      if (!res.ok) throw new Error("File fetch failed");
+      const text = await res.text();
+      setScenarioContent((prev) => ({ ...prev, [key]: text }));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleViewScenario = async (key: string, fileUrl: string) => {
+    await loadScenario(key, fileUrl);
+    setExpandedKey(expandedKey === key ? null : key);
+  };
 
   const handleInject = async (fileUrl: string) => {
     try {
@@ -123,7 +162,7 @@ export function TestScenarios() {
       </div>
 
       <div className="grid grid-cols-[repeat(auto-fill,minmax(330px,1fr))] gap-6">
-        {SCENARIOS.map((s, idx) => (
+        {SCENARIOS.map((s) => (
           <div key={s.key} className="flex flex-col p-6 bg-bg-surface border border-border-base rounded-lg transition-transform hover:-translate-y-1 hover:shadow-md shadow-sm h-full relative">
             <span className={clsx(
               "inline-flex self-start py-0.5 px-2.5 rounded-sm text-[0.65rem] font-bold uppercase tracking-[0.1em] border mb-3",
@@ -149,18 +188,67 @@ export function TestScenarios() {
               ))}
             </div>
 
-            <div className="p-3 bg-bg-panel border border-border-lite border-l-4 border-l-brand-blue rounded-r-md text-[0.8rem] text-text-subtle leading-[1.6]">
+            <div className="p-3 bg-bg-panel border border-border-lite border-l-4 border-l-brand-blue rounded-r-md text-[0.8rem] text-text-subtle leading-[1.6] mb-4">
               {s.expect}
             </div>
 
-            <div className="mt-6 pt-4 mt-auto">
-              <button className="w-full bg-transparent hover:bg-bg-panel text-text-primary border border-border-base font-bold py-2 px-4 rounded transition-all" onClick={() => handleInject(s.file)}>
-                Inject Parameter Set {idx + 1}
+            <div className="flex gap-2 mt-auto">
+              <button 
+                onClick={() => handleViewScenario(s.key, s.file)}
+                className="flex-1 bg-transparent hover:bg-bg-panel text-text-primary border border-border-base font-bold py-2 px-3 rounded transition-all flex items-center justify-center gap-2 text-sm"
+              >
+                <Eye size={16} /> View
+              </button>
+              <button 
+                onClick={() => handleInject(s.file)}
+                className="flex-1 bg-brand-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-all"
+              >
+                Inject
               </button>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Modal for viewing/editing scenario */}
+      {expandedKey && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[80vh] flex flex-col">
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-border-base">
+              <div className="flex items-center gap-3">
+                <FileText size={20} className="text-brand-blue" />
+                <h2 className="text-[1.3rem] font-bold text-text-primary">
+                  {SCENARIOS.find((s) => s.key === expandedKey)?.title}
+                </h2>
+              </div>
+              <button 
+                onClick={() => setExpandedKey(null)}
+                className="p-2 hover:bg-bg-panel rounded-lg transition-all"
+              >
+                <X size={24} className="text-text-muted" />
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto p-6">
+              <div className="whitespace-pre-wrap font-mono text-[0.9rem] text-text-default leading-relaxed bg-bg-panel p-4 rounded-lg">
+                {scenarioContent[expandedKey] || "Loading..."}
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="flex gap-3 p-6 border-t border-border-base bg-bg-panel">
+              <button
+                onClick={() => setExpandedKey(null)}
+                className="px-4 py-2 bg-bg-surface border border-border-base rounded-lg font-bold text-text-primary hover:bg-bg-panel transition-all"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

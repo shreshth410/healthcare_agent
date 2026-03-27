@@ -36,6 +36,8 @@ class PipelineState(TypedDict, total=False):
     clarification_response: str
     escalated: bool
     final_output: dict
+    reflection_count: int
+    reflection_feedback: str
 
 
 # ── Node Functions ───────────────────────────────────────────────────────
@@ -91,8 +93,15 @@ def coding_node(state: PipelineState) -> dict:
     extracted = state.get("extracted", {})
     retrieved_codes = state.get("retrieved_codes", [])
     clarification = state.get("clarification_response", "")
+    reflection_fb = state.get("reflection_feedback", "")
 
-    assigned = run_coding(extracted, retrieved_codes, clarification)
+    # Increment reflection count if feedback exists (means we loop back)
+    count = state.get("reflection_count", 0)
+    if reflection_fb:
+        print(f"  ↺ Reflection pass {count + 1}: Applying feedback...")
+        count += 1
+
+    assigned = run_coding(extracted, retrieved_codes, clarification, reflection_fb)
 
     icd_count = len(assigned.get("icd10_codes", []))
     cpt_count = len(assigned.get("cpt_codes", []))
@@ -104,6 +113,8 @@ def coding_node(state: PipelineState) -> dict:
 
     return {
         "assigned_codes": assigned,
+        "reflection_count": count,
+        "reflection_feedback": "", # Clear it for the next pass
     }
 
 
@@ -125,12 +136,16 @@ def compliance_node(state: PipelineState) -> dict:
         "needs_clarification": result.get("needs_clarification", False),
         "clarification_question": result.get("clarification_question", ""),
         "escalated": result.get("escalated", False),
+        "needs_reflection": result.get("needs_reflection", False),
+        "reflection_feedback": result.get("reflection_feedback", ""),
     }
 
     if result.get("needs_clarification"):
         print(f"  ⚠ Clarification needed: {result.get('clarification_question', '')[:80]}...")
     if result.get("escalated"):
         print(f"  🚨 ESCALATED: {result.get('escalation_reason', '')[:80]}...")
+    if result.get("needs_reflection"):
+        print(f"  🤔 REFLECTION NEEDED: {result.get('reflection_feedback', '')[:80]}...")
     if result.get("removed_codes"):
         print(f"  ✗ Removed {len(result['removed_codes'])} non-compliant codes")
 
@@ -181,12 +196,19 @@ def after_compliance(state: PipelineState) -> str:
     Determine next step after compliance check.
 
     Returns:
-        - "audit" if clean, escalated, or needs_clarification
-          (all paths lead to audit for logging).
+        - "coding" if needs_reflection and count < 2
+        - "audit" otherwise.
     """
-    # All paths go to audit — the state flags (needs_clarification, escalated)
-    # are read by the frontend to determine user interaction.
-    # We always log the session regardless of outcome.
+    needs_reflection = state.get("compliance_result", {}).get("needs_reflection", False)
+    count = state.get("reflection_count", 0)
+
+    if needs_reflection and count < 2:
+        return "coding"
+    
+    # All other paths go to audit. If count >= 2, we just audit the (possibly escalated) state.
+    if needs_reflection and count >= 2:
+        print("  ⚠ Maximum reflection loops reached. Proceeding to audit.")
+
     return "audit"
 
 
@@ -215,7 +237,7 @@ def build_graph() -> StateGraph:
     graph.add_conditional_edges(
         "compliance",
         after_compliance,
-        {"audit": "audit"},
+        {"audit": "audit", "coding": "coding"},
     )
 
     # Audit → END
@@ -240,7 +262,7 @@ def build_clarification_graph() -> StateGraph:
     graph.add_conditional_edges(
         "compliance",
         after_compliance,
-        {"audit": "audit"},
+        {"audit": "audit", "coding": "coding"},
     )
     graph.add_edge("audit", END)
 
@@ -276,6 +298,8 @@ def run_pipeline(raw_note: str) -> dict:
         "clarification_response": "",
         "escalated": False,
         "final_output": {},
+        "reflection_count": 0,
+        "reflection_feedback": "",
     }
 
     print("\n" + "🏥" * 25)

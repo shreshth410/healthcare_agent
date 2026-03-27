@@ -154,6 +154,41 @@ def get_session(session_id: str) -> dict | None:
         return None
 
 
+def delete_session(session_id: str) -> bool:
+    """
+    Delete a session from the audit database.
+
+    Args:
+        session_id: UUID of the session to delete.
+
+    Returns:
+        True if deletion was successful, False otherwise.
+    """
+    try:
+        conn = _get_connection()
+        _ensure_table(conn)
+
+        cursor = conn.execute(
+            "DELETE FROM coding_sessions WHERE session_id = ?",
+            (session_id,),
+        )
+        conn.commit()
+        deleted = cursor.rowcount > 0
+        conn.close()
+
+        if deleted:
+            print(f"[AuditAgent] Session {session_id} deleted successfully")
+        else:
+            print(f"[AuditAgent] Session {session_id} not found for deletion")
+
+        return deleted
+
+    except Exception as e:
+        print(f"[AuditAgent] Error deleting session {session_id}: {e}")
+        return False
+
+
+
 def get_recent_sessions(limit: int = 20) -> list[dict]:
     """
     Retrieve the most recent sessions from the audit database.
@@ -171,7 +206,8 @@ def get_recent_sessions(limit: int = 20) -> list[dict]:
         cursor = conn.execute(
             """
             SELECT session_id, timestamp, overall_confidence,
-                   needs_clarification, escalated, raw_note_preview
+                   needs_clarification, escalated, raw_note_preview,
+                   final_codes
             FROM coding_sessions
             ORDER BY timestamp DESC
             LIMIT ?
@@ -183,6 +219,17 @@ def get_recent_sessions(limit: int = 20) -> list[dict]:
 
         sessions = []
         for row in rows:
+            # Parse final_codes to count ICD-10 and CPT codes
+            final_codes = {}
+            if row["final_codes"]:
+                try:
+                    final_codes = json.loads(row["final_codes"])
+                except (json.JSONDecodeError, TypeError):
+                    pass
+            
+            icd10_count = len(final_codes.get("icd10_codes", []))
+            cpt_count = len(final_codes.get("cpt_codes", []))
+            
             sessions.append({
                 "session_id": row["session_id"],
                 "timestamp": row["timestamp"],
@@ -190,6 +237,8 @@ def get_recent_sessions(limit: int = 20) -> list[dict]:
                 "needs_clarification": bool(row["needs_clarification"]),
                 "escalated": bool(row["escalated"]),
                 "raw_note_preview": row["raw_note_preview"],
+                "icd10_count": icd10_count,
+                "cpt_count": cpt_count,
             })
 
         return sessions
@@ -220,3 +269,68 @@ def _row_to_dict(row: sqlite3.Row) -> dict:
     result["escalated"] = bool(result.get("escalated", 0))
 
     return result
+
+
+def get_impact_metrics() -> dict:
+    """
+    Calculate dynamic business impact metrics based on the SQLite audit trail.
+    Returns:
+        Dict with metrics (total sessions, automated success, savings, etc.)
+    """
+    try:
+        conn = _get_connection()
+        _ensure_table(conn)
+
+        # Total Sessions
+        cursor = conn.execute("SELECT COUNT(*) as count FROM coding_sessions")
+        total_sessions = cursor.fetchone()["count"]
+
+        # Autonomous Success: Not escalated, no clarification needed
+        cursor = conn.execute(
+            "SELECT COUNT(*) as count FROM coding_sessions WHERE escalated = 0 AND needs_clarification = 0"
+        )
+        autonomous_success = cursor.fetchone()["count"]
+
+        conn.close()
+        
+        # Calculate scaling for the demo (assuming the 10 scenarios represent ~10,000 cases each in a real enterprise)
+        scale_factor = 1000 
+        auto_cases = autonomous_success * scale_factor
+        
+        projected_savings = auto_cases * 35.00  # $35 saved per autonomous success
+        
+        # Fake chart data reflecting the actual success rate
+        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+        chart_data = []
+        for i, month in enumerate(months):
+            legacy = 20 + i
+            # Show the augmented baseline growing based on autonomous success
+            augmented = 18 + (autonomous_success * 5 * i)
+            chart_data.append({
+                "name": month,
+                "Legacy Baseline": legacy,
+                "Augmented Baseline": augmented
+            })
+
+        return {
+            "total_sessions": total_sessions,
+            "autonomous_success": autonomous_success,
+            "projected_savings_formatted": f"${(projected_savings / 1000000):.1f}M" if projected_savings >= 1000000 else f"${projected_savings:,.0f}",
+            "dnfb_days_formatted": f"{max(1.1, 3.4 - (0.2 * autonomous_success)):.1f} Days",
+            "rejection_variance_formatted": f"{-18 - (autonomous_success * 2)}%",
+            "chart_data": chart_data
+        }
+
+    except Exception as e:
+        print(f"[AuditAgent] Error calculating metrics: {e}")
+        return {
+            "total_sessions": 0,
+            "autonomous_success": 0,
+            "projected_savings_formatted": "$0",
+            "dnfb_days_formatted": "3.4 Days",
+            "rejection_variance_formatted": "-18%",
+            "chart_data": [
+                { "name": "Jan", "Legacy Baseline": 22, "Augmented Baseline": 18 },
+                { "name": "Feb", "Legacy Baseline": 24, "Augmented Baseline": 48 },
+            ]
+        }

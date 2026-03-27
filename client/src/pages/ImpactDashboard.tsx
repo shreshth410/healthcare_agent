@@ -1,35 +1,71 @@
-
+import { useState, useEffect } from "react";
 import { Hero } from "../components/Hero";
 import { KpiCard } from "../components/KpiCard";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { apiCall } from "../api";
 
-const data = [
-  { name: "Jan", "Legacy Baseline": 22, "Augmented Baseline": 18 },
-  { name: "Feb", "Legacy Baseline": 24, "Augmented Baseline": 48 },
-  { name: "Mar", "Legacy Baseline": 21, "Augmented Baseline": 85 },
-  { name: "Apr", "Legacy Baseline": 23, "Augmented Baseline": 120 },
-  { name: "May", "Legacy Baseline": 22, "Augmented Baseline": 145 },
-  { name: "Jun", "Legacy Baseline": 25, "Augmented Baseline": 180 },
-];
+interface MetricsData {
+  total_sessions: number;
+  autonomous_success: number;
+  projected_savings_formatted: string;
+  dnfb_days_formatted: string;
+  rejection_variance_formatted: string;
+  chart_data: Array<{
+    name: string;
+    "Legacy Baseline": number;
+    "Augmented Baseline": number;
+  }>;
+}
 
 export function ImpactDashboard() {
+  const [metrics, setMetrics] = useState<MetricsData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchMetrics() {
+      try {
+        const data = await apiCall("GET", "/metrics");
+        setMetrics(data);
+      } catch (err) {
+        console.error("Failed to fetch metrics", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchMetrics();
+  }, []);
+
+  if (loading || !metrics) {
+    return (
+      <div className="flex justify-center items-center h-full transition-all duration-300">
+        <div className="flex animate-pulse flex-col items-center gap-4 text-slate-400">
+          <svg className="h-10 w-10 animate-spin text-brand-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span className="text-sm font-medium tracking-wide">Loading metrics...</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="animate-fade-in">
       <Hero
         title="Performance Economics & Outcomes"
-        subtitle="Empirical tracking of throughput efficiency, revenue cycle acceleration, and operational cost depreciation utilizing autonomous matrices."
+        subtitle={`Empirical tracking of throughput efficiency utilizing autonomous matrices. Total Sessions: ${metrics.total_sessions} | Autonomous Success: ${metrics.autonomous_success}`}
         dateStr={new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
       />
 
       <div className="flex flex-col md:flex-row gap-6 mt-6">
         <div style={{ flex: 1 }}>
-          <KpiCard label="Projected Resource Savings" value="$1.2M" sub="Calculated via a 42% reduction in manual adjudication overheads." borderColor="#4F7CFF" />
+          <KpiCard label="Projected Resource Savings" value={metrics.projected_savings_formatted} sub="Calculated via reduction in manual adjudication overheads." borderColor="#4F7CFF" />
         </div>
         <div style={{ flex: 1 }}>
-          <KpiCard label="Cycle Acceleration (DNFB)" value="3.4 Days" sub="Decrease in standard accounts receivable staging periods." borderColor="#22C55E" />
+          <KpiCard label="Cycle Acceleration (DNFB)" value={metrics.dnfb_days_formatted} sub="Decrease in standard accounts receivable staging periods." borderColor="#22C55E" />
         </div>
         <div style={{ flex: 1 }}>
-          <KpiCard label="Rejection Risk Variance" value="-18%" sub="Yielded from automated front-end logic verification checks." borderColor="#8B5CF6" />
+          <KpiCard label="Rejection Risk Variance" value={metrics.rejection_variance_formatted} sub="Yielded from automated front-end logic verification checks." borderColor="#8B5CF6" />
         </div>
       </div>
 
@@ -38,7 +74,7 @@ export function ImpactDashboard() {
           <span className="section-label block mb-2 font-bold text-[0.85rem] text-text-primary uppercase tracking-[0.05em]">Throughput Trajectory Modeling</span>
           <div className="bg-bg-surface border border-border-base rounded-lg p-4 shadow-sm" style={{ height: "350px" }}>
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+              <LineChart data={metrics.chart_data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: "#64748B", fontSize: 12 }} />
                 <YAxis axisLine={false} tickLine={false} tick={{ fill: "#64748B", fontSize: 12 }} />

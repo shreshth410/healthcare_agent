@@ -20,6 +20,12 @@ _MODEL = "llama-3.3-70b-versatile"
 
 CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.60"))
 
+MOCK_PAYER_POLICIES = [
+    "Medicare Policy 14.2: CPT 73221 (MRI joint) requires a prior conservative treatment trial (NSAIDs, Ice, etc.) documented. If documented, approved. If not, remove the code.",
+    "Aetna Policy 8.1: Do not assign Asthma (J45.909) alongside COPD (J44.9) unless specifically documented as Asthma-COPD overlap syndrome.",
+    "UnitedHealthcare Policy 1.A: Preventive care CPT codes (99381-99397) cannot be billed with acute condition ICD-10 codes without modifier 25 (which we don't handle, so remove the CPT)."
+]
+
 COMPLIANCE_PROMPT = """You are a medical coding compliance officer. Your job is to review assigned medical codes 
 and ensure they are clinically supported, compliant with coding guidelines, and properly documented.
 
@@ -34,20 +40,27 @@ AMBIGUOUS FIELDS IDENTIFIED:
 
 NEEDS CLARIFICATION: {needs_clarification}
 
+PAYER POLICIES TO ENFORCE:
+{payer_policies}
+
 INSTRUCTIONS:
-Perform three checks:
+Perform four checks:
 
 1. COMPLIANCE CHECK
    - Verify each ICD-10 code has a corresponding symptom/condition in the clinical note.
    - Verify each CPT code has a corresponding procedure/service in the clinical note.
    - If a code has no supporting documentation, mark it for removal.
 
-2. AMBIGUITY ASSESSMENT
+2. PAYER POLICY CHECK
+   - Ensure the assigned codes do not violate any of the provided PAYER POLICIES.
+   - If a code violates a policy, mark it for removal AND set needs_reflection=true with specific reflection_feedback explaining the rule violation for the coder.
+
+3. AMBIGUITY ASSESSMENT
    - If there are ambiguous fields, generate a SPECIFIC, TARGETED clarification question.
-   - The question should explain WHY the clarification matters for coding (e.g., which codes depend on the answer).
+   - The question should explain WHY the clarification matters for coding.
    - Do NOT ask vague questions like "can you clarify?" — be specific about what information is needed.
 
-3. ESCALATION ASSESSMENT
+4. ESCALATION ASSESSMENT
    - If overall_confidence < {confidence_threshold}, recommend escalation.
    - If there are contradictions in the documentation, recommend escalation.
    - Provide a clear, specific escalation reason.
@@ -70,7 +83,9 @@ Return ONLY valid JSON (no markdown, no backticks) with this schema:
   "clarification_question": "string — specific, actionable question, or empty string",
   "escalated": boolean,
   "escalation_reason": "string — specific reason for escalation, or empty string",
-  "compliance_notes": "string — summary of compliance review findings"
+  "compliance_notes": "string — summary of compliance review findings",
+  "needs_reflection": boolean,
+  "reflection_feedback": "string — specific feedback to the coding agent to fix the policy violation or hallucinated code, or empty string"
 }}"""
 
 
@@ -97,6 +112,7 @@ def run_compliance(
         assigned_codes=json.dumps(assigned_codes, indent=2),
         ambiguous_fields=json.dumps(ambiguous_fields, indent=2),
         needs_clarification=needs_clarification,
+        payer_policies=json.dumps(MOCK_PAYER_POLICIES, indent=2),
         confidence_threshold=CONFIDENCE_THRESHOLD,
     )
 
@@ -152,6 +168,8 @@ def _validate_compliance_result(result: dict, assigned_codes: dict, needs_clarif
     result.setdefault("escalated", False)
     result.setdefault("escalation_reason", "")
     result.setdefault("compliance_notes", "")
+    result.setdefault("needs_reflection", False)
+    result.setdefault("reflection_feedback", "")
 
     # ── HARD GUARDRAIL: Remove any code with confidence < threshold ──────
     approved = result.get("approved_codes", {})
@@ -186,14 +204,27 @@ def _validate_compliance_result(result: dict, assigned_codes: dict, needs_clarif
 
     result["approved_codes"] = approved
 
-    # Enforce escalation if overall confidence is below threshold
-    if approved.get("overall_confidence", 0.0) < CONFIDENCE_THRESHOLD:
+    # Enforce escalation ONLY by hard guardrails (confidence threshold) or documented contradictions
+    overall_conf = approved.get("overall_confidence", 0.0)
+    
+    if overall_conf < CONFIDENCE_THRESHOLD:
+        # Hard guardrail: insufficient confidence
         result["escalated"] = True
-        if not result["escalation_reason"]:
-            result["escalation_reason"] = (
-                f"Overall confidence {approved['overall_confidence']:.2f} "
-                f"is below the acceptable threshold of {CONFIDENCE_THRESHOLD}."
-            )
+        result["escalation_reason"] = (
+            f"Overall confidence {overall_conf:.2f} "
+            f"is below the acceptable threshold of {CONFIDENCE_THRESHOLD}."
+        )
+    else:
+        # Confidence is sufficient. Only escalate if there are documented contradictions.
+        reason = result.get("escalation_reason", "").lower()
+        has_contradiction = "contradict" in reason or "conflict" in reason
+        
+        if has_contradiction:
+            result["escalated"] = True
+        else:
+            # Clear escalation — confidence is good and no contradictions
+            result["escalated"] = False
+            result["escalation_reason"] = ""
 
     # If escalated, override clarification
     if result["escalated"]:
@@ -266,4 +297,6 @@ def _fallback_compliance(
         "escalated": escalated,
         "escalation_reason": escalation_reason,
         "compliance_notes": "Fallback compliance check — hard guardrails applied, no LLM review performed.",
+        "needs_reflection": False,
+        "reflection_feedback": "",
     }

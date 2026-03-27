@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from agents.orchestrator import run_pipeline, run_clarification
-from agents.audit_agent import get_session, get_recent_sessions
+from agents.audit_agent import get_session, get_recent_sessions, get_impact_metrics, delete_session
 
 # ── App Setup ────────────────────────────────────────────────────────────
 
@@ -164,8 +164,72 @@ async def get_audit(session_id: str):
     return session
 
 
+@app.get("/metrics")
+async def get_metrics():
+    """Return dynamic impact metrics for the dashboard."""
+    return get_impact_metrics()
+
+
 @app.get("/sessions")
 async def list_sessions():
     """Return the last 20 session summaries."""
     sessions = get_recent_sessions(limit=20)
     return {"sessions": sessions}
+
+
+@app.delete("/audit/{session_id}")
+async def delete_audit(session_id: str):
+    """Delete a session from the audit database."""
+    deleted = delete_session(session_id)
+    if deleted:
+        return {"deleted": True, "message": f"Session {session_id} deleted successfully"}
+    else:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Session {session_id} not found"
+        )
+
+
+class ScenarioRequest(BaseModel):
+    content: str
+
+
+@app.post("/scenarios/{scenario_key}")
+async def save_scenario(scenario_key: str, request: ScenarioRequest):
+    """Save scenario content to file."""
+    if not request.content or not request.content.strip():
+        raise HTTPException(status_code=400, detail="Scenario content cannot be empty")
+    
+    try:
+        # Map scenario keys to file paths
+        scenario_files = {
+            "sc_1": "./tests/scenario_1.txt",
+            "sc_2": "./tests/scenario_2.txt",
+            "sc_3": "./tests/scenario_3.txt",
+            "sc_4": "./tests/scenario_4_ambiguous.txt",
+            "sc_5": "./tests/scenario_5_clean.txt",
+            "sc_6": "./tests/scenario_6_clean.txt",
+            "sc_7": "./tests/scenario_7_escalation.txt",
+            "sc_8": "./tests/scenario_8_clean.txt",
+        }
+        
+        file_path = scenario_files.get(scenario_key)
+        if not file_path:
+            raise HTTPException(status_code=404, detail=f"Scenario {scenario_key} not found")
+        
+        # Ensure directory exists
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        
+        # Write content to file
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(request.content)
+        
+        return {"saved": True, "message": f"Scenario {scenario_key} saved successfully"}
+    
+    except Exception as e:
+        print(f"[API] Error saving scenario {scenario_key}: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to save scenario: {str(e)}"
+        )
+

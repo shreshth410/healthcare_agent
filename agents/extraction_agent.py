@@ -13,7 +13,7 @@ _PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 load_dotenv(os.path.join(_PROJECT_ROOT, ".env"))
 
 _client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-_MODEL = "llama-3.3-70b-versatile"
+_MODEL = "llama-3.1-8b-instant"
 
 EXTRACTION_PROMPT = """You are a medical information extraction specialist. Analyze the following clinical note and extract structured information.
 
@@ -29,8 +29,13 @@ Return ONLY valid JSON (no markdown, no backticks, no explanation) with exactly 
 }}
 
 Rules:
-- If a field is not mentioned in the note, set it to an empty list/object and add the field name to ambiguous_fields.
-- If information is contradictory, include both versions and add the field to ambiguous_fields with a note about the contradiction.
+- Only mark a field as ambiguous if it is TRULY MISSING or CONTRADICTORY.
+- A field with documented information should NOT be marked ambiguous, even if:
+  * The information is preliminary or pending final results (e.g., "biopsy pending")
+  * The information is a list of possibilities (e.g., "vs." diagnosis)
+  * The information is incomplete relative to ideal documentation (e.g., small lesion size)
+- If a field is not mentioned in the note AT ALL, set it to an empty list/object and add it to ambiguous_fields.
+- If information directly contradicts other information in the note, mark it as ambiguous with the contradiction noted.
 - Always include units for vitals when available.
 - Be thorough — extract every symptom, medication, and procedure mentioned.
 
