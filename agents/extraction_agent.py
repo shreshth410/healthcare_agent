@@ -13,7 +13,7 @@ _PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 load_dotenv(os.path.join(_PROJECT_ROOT, ".env"))
 
 _client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-_MODEL = "llama-3.3-70b-versatile"
+_MODEL = "llama-3.1-8b-instant"
 
 EXTRACTION_PROMPT = """You are a medical information extraction specialist. Analyze the following clinical note and extract structured information.
 

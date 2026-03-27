@@ -29,6 +29,8 @@ CANDIDATE CODES FROM DATABASE:
 
 {clarification_section}
 
+{reflection_section}
+
 INSTRUCTIONS:
 1. Review the extracted clinical information carefully.
 2. From the candidate codes provided, select the most appropriate ICD-10 and CPT codes.
@@ -69,7 +71,7 @@ Rules:
 - Only include CPT codes for procedures/services actually documented"""
 
 
-def run_coding(extracted: dict, retrieved_codes: list[dict], clarification_response: str = "") -> dict:
+def run_coding(extracted: dict, retrieved_codes: list[dict], clarification_response: str = "", reflection_feedback: str = "") -> dict:
     """
     Assign ICD-10 and CPT codes with confidence scores using Groq.
 
@@ -77,6 +79,7 @@ def run_coding(extracted: dict, retrieved_codes: list[dict], clarification_respo
         extracted: Dict from extraction agent.
         retrieved_codes: List of candidate codes from enrichment agent.
         clarification_response: Optional clarification from the user.
+        reflection_feedback: Optional feedback from the compliance agent regarding payer policy violations.
 
     Returns:
         Dict with assigned codes, confidence scores, and escalation recommendation.
@@ -93,10 +96,21 @@ Take this clarification into account when assigning codes. It should help resolv
 ambiguous fields and improve confidence in code assignment.
 """
 
+    reflection_section = ""
+    if reflection_feedback:
+        reflection_section = f"""
+COMPLIANCE FEEDBACK (SELF-REFLECTION):
+Your previous code assignment was rejected by the Compliance Agent. 
+Reason: {reflection_feedback}
+
+You MUST fix this violation. Choose alternative codes or remove the violating code.
+"""
+
     prompt = CODING_PROMPT.format(
         extracted=json.dumps(extracted, indent=2),
         retrieved_codes=json.dumps(retrieved_codes, indent=2),
         clarification_section=clarification_section,
+        reflection_section=reflection_section,
     )
 
     # Try up to 2 times

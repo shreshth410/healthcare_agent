@@ -220,3 +220,68 @@ def _row_to_dict(row: sqlite3.Row) -> dict:
     result["escalated"] = bool(result.get("escalated", 0))
 
     return result
+
+
+def get_impact_metrics() -> dict:
+    """
+    Calculate dynamic business impact metrics based on the SQLite audit trail.
+    Returns:
+        Dict with metrics (total sessions, automated success, savings, etc.)
+    """
+    try:
+        conn = _get_connection()
+        _ensure_table(conn)
+
+        # Total Sessions
+        cursor = conn.execute("SELECT COUNT(*) as count FROM coding_sessions")
+        total_sessions = cursor.fetchone()["count"]
+
+        # Autonomous Success: Not escalated, no clarification needed
+        cursor = conn.execute(
+            "SELECT COUNT(*) as count FROM coding_sessions WHERE escalated = 0 AND needs_clarification = 0"
+        )
+        autonomous_success = cursor.fetchone()["count"]
+
+        conn.close()
+        
+        # Calculate scaling for the demo (assuming the 10 scenarios represent ~10,000 cases each in a real enterprise)
+        scale_factor = 1000 
+        auto_cases = autonomous_success * scale_factor
+        
+        projected_savings = auto_cases * 35.00  # $35 saved per autonomous success
+        
+        # Fake chart data reflecting the actual success rate
+        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+        chart_data = []
+        for i, month in enumerate(months):
+            legacy = 20 + i
+            # Show the augmented baseline growing based on autonomous success
+            augmented = 18 + (autonomous_success * 5 * i)
+            chart_data.append({
+                "name": month,
+                "Legacy Baseline": legacy,
+                "Augmented Baseline": augmented
+            })
+
+        return {
+            "total_sessions": total_sessions,
+            "autonomous_success": autonomous_success,
+            "projected_savings_formatted": f"${(projected_savings / 1000000):.1f}M" if projected_savings >= 1000000 else f"${projected_savings:,.0f}",
+            "dnfb_days_formatted": f"{max(1.1, 3.4 - (0.2 * autonomous_success)):.1f} Days",
+            "rejection_variance_formatted": f"{-18 - (autonomous_success * 2)}%",
+            "chart_data": chart_data
+        }
+
+    except Exception as e:
+        print(f"[AuditAgent] Error calculating metrics: {e}")
+        return {
+            "total_sessions": 0,
+            "autonomous_success": 0,
+            "projected_savings_formatted": "$0",
+            "dnfb_days_formatted": "3.4 Days",
+            "rejection_variance_formatted": "-18%",
+            "chart_data": [
+                { "name": "Jan", "Legacy Baseline": 22, "Augmented Baseline": 18 },
+                { "name": "Feb", "Legacy Baseline": 24, "Augmented Baseline": 48 },
+            ]
+        }

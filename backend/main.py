@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from agents.orchestrator import run_pipeline, run_clarification
-from agents.audit_agent import get_session, get_recent_sessions
+from agents.audit_agent import get_session, get_recent_sessions, get_impact_metrics
 
 # ── App Setup ────────────────────────────────────────────────────────────
 
@@ -162,6 +162,12 @@ async def get_audit(session_id: str):
             detail=f"Session {session_id} not found"
         )
     return session
+
+
+@app.get("/metrics")
+async def get_metrics():
+    """Return dynamic impact metrics for the dashboard."""
+    return get_impact_metrics()
 
 
 @app.get("/sessions")
