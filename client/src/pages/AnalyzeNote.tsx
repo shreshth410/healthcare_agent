@@ -25,7 +25,7 @@ function CodeRow({ code, description, category, confidence, reasoning }: any) {
       <div 
         className={clsx(
           "flex items-start gap-5 p-5 border-border-base border bg-bg-surface rounded-sm transition-shadow duration-200", 
-          reasoning ? "cursor-pointer hover:shadow-sm" : "cursor-default"
+          reasoning ? "cursor-pointer hover:shadow-sm dark:shadow-slate-900/50" : "cursor-default"
         )} 
         onClick={() => reasoning && setOpen(!open)}
       >
@@ -135,7 +135,7 @@ export function AnalyzeNote() {
       <div className="flex gap-6 items-start" style={{ marginBottom: result ? "2rem" : "5rem" }}>
         <div className="flex-1">
           <span className="section-label block mb-2 font-bold text-[0.85rem] text-text-primary uppercase tracking-[0.05em]">Physician Documentation Input</span>
-          <div className="premium-card bg-bg-surface border border-border-base p-6 rounded-lg shadow-sm">
+          <div className="premium-card bg-bg-surface border border-border-base p-6 rounded-lg shadow-sm dark:shadow-slate-900/50">
             <div className="flex justify-between items-start flex-wrap gap-4 mb-4">
               <div>
                 <div className="text-[1rem] font-extrabold text-[#0F172A]">Provide Clinical Note payload</div>
@@ -159,7 +159,7 @@ export function AnalyzeNote() {
             />
 
             <div className="flex gap-3 mt-4 items-center">
-              <button className="btn-primary bg-brand-blue hover:bg-blue-700 text-text-inverse font-bold py-2.5 px-6 rounded-md shadow-sm transition-all" style={{ flex: 1.2 }} onClick={runAnalysis} disabled={status === "running"}>
+              <button className="btn-primary bg-brand-blue hover:bg-blue-700 text-text-inverse font-bold py-2.5 px-6 rounded-md shadow-sm dark:shadow-slate-900/50 transition-all" style={{ flex: 1.2 }} onClick={runAnalysis} disabled={status === "running"}>
                 {status === "running" ? (
                   <div className="flex items-center justify-center gap-2">
                     <div className="animate-spin w-4 h-4 border-2 border-white/20 border-t-white rounded-full"></div>
@@ -168,7 +168,7 @@ export function AnalyzeNote() {
                 ) : "Run System Analysis"}
               </button>
               <button
-                className="btn-secondary bg-white hover:bg-gray-50 text-text-primary border border-border-base font-bold py-2.5 px-6 rounded-md transition-all"
+                className="btn-secondary bg-white dark:bg-slate-900 hover:bg-gray-50 text-text-primary border border-border-base font-bold py-2.5 px-6 rounded-md transition-all"
                 style={{ flex: 0.9 }}
                 onClick={() => { setNote(""); setResult(null); setStatus("idle"); }}
                 disabled={status === "running"}
@@ -258,7 +258,7 @@ export function AnalyzeNote() {
             {needsClarify && (
               <>
                 <span className="section-label block mb-2 font-bold text-[0.85rem] text-text-primary uppercase tracking-[0.05em]">Operator Override Input</span>
-                <div className="p-6 bg-bg-surface border border-border-base rounded-lg mb-6 shadow-sm">
+                <div className="p-6 bg-bg-surface border border-border-base rounded-lg mb-6 shadow-sm dark:shadow-slate-900/50">
                   <textarea
                     className="w-full p-4 border border-border-base rounded-md focus:border-brand-blue resize-y bg-bg-surface font-sans text-[0.9rem] leading-[1.6] mb-4"
                     rows={4}
@@ -267,7 +267,7 @@ export function AnalyzeNote() {
                     onChange={(e) => setOverrideText(e.target.value)}
                     disabled={overrideRunning}
                   />
-                  <button className="bg-brand-blue hover:bg-blue-700 text-text-inverse font-bold py-2.5 px-6 rounded-md shadow-sm transition-all" onClick={runOverride} disabled={overrideRunning}>
+                  <button className="bg-brand-blue hover:bg-blue-700 text-text-inverse font-bold py-2.5 px-6 rounded-md shadow-sm dark:shadow-slate-900/50 transition-all" onClick={runOverride} disabled={overrideRunning}>
                     {overrideRunning ? "Re-evaluating..." : "Submit Override"}
                   </button>
                 </div>
@@ -287,7 +287,7 @@ export function AnalyzeNote() {
                 </div>
                 <div style={{ flex: 1 }}>
                   <span className="section-label block mb-2 font-bold text-[0.85rem] text-text-primary uppercase tracking-[0.05em]">System Recommendations</span>
-                  <div className="p-6 bg-bg-surface border border-border-base rounded-lg shadow-sm">
+                  <div className="p-6 bg-bg-surface border border-border-base rounded-lg shadow-sm dark:shadow-slate-900/50">
                     <div className="flex flex-col gap-3">
                       <div className="flex gap-2 items-start"><XCircle size={16} color="#EF4444" className="mt-0.5" /><span className="text-[0.84rem] text-[#334155]">Request an addendum to resolve contradictions.</span></div>
                       <div className="flex gap-2 items-start"><XCircle size={16} color="#EF4444" className="mt-0.5" /><span className="text-[0.84rem] text-[#334155]">Route documentation to Senior Staff for manual adjudication.</span></div>
@@ -324,7 +324,7 @@ export function AnalyzeNote() {
                        </div>
                        <div style={{ flex: 1 }}>
                          <span className="section-label block mb-2 font-bold text-[0.85rem] text-text-primary uppercase tracking-[0.05em]">Evaluation Logic</span>
-                         <div className="p-5 bg-bg-panel border border-border-base rounded-lg shadow-sm">
+                         <div className="p-5 bg-bg-panel border border-border-base rounded-lg shadow-sm dark:shadow-slate-900/50">
                            <div className="font-extrabold text-[#0F172A] mb-2 text-[0.9rem]">ICD-10-CM Standard</div>
                            <div className="text-[0.82rem] text-text-muted leading-[1.6]">
                              Algorithm prioritizes the principal diagnosis. Logic enforces the highest available specificity with respect to laterality, acuity, and episode of care parameters.
@@ -342,7 +342,7 @@ export function AnalyzeNote() {
                        </div>
                        <div style={{ flex: 1 }}>
                          <span className="section-label block mb-2 font-bold text-[0.85rem] text-text-primary uppercase tracking-[0.05em]">Evaluation Logic</span>
-                         <div className="p-5 bg-bg-panel border border-border-base rounded-lg shadow-sm">
+                         <div className="p-5 bg-bg-panel border border-border-base rounded-lg shadow-sm dark:shadow-slate-900/50">
                            <div className="font-extrabold text-[#0F172A] mb-2 text-[0.9rem]">CPT Standard</div>
                            <div className="text-[0.82rem] text-text-muted leading-[1.6]">
                            Procedure validity constrained by medical necessity documentation, approach vectors, and time evaluations. Modifiers cross-referenced against note evidence.
@@ -370,7 +370,7 @@ export function AnalyzeNote() {
                               <span className="section-label block mb-2 font-bold text-[0.85rem] text-text-primary uppercase tracking-[0.05em]">System-Pruned Candidates</span>
                               <div className="text-[0.8rem] text-text-subtle mb-3">Candidates isolated during extraction but discarded during ruleset evaluation.</div>
                               {result.removed_codes.map((rc: any, i: number) => (
-                                <div key={i} className="flex items-center gap-4 bg-bg-surface border border-border-base p-3 px-4 rounded-lg mb-2 shadow-sm">
+                                <div key={i} className="flex items-center gap-4 bg-bg-surface border border-border-base p-3 px-4 rounded-lg mb-2 shadow-sm dark:shadow-slate-900/50">
                                   <span className="font-mono text-[0.9rem] font-bold text-brand-red">{rc.code || "N/A"}</span>
                                   <span className="text-[0.85rem] text-text-muted">{rc.reason || "Discarded by validation algorithms."}</span>
                                 </div>
@@ -399,7 +399,7 @@ export function AnalyzeNote() {
                      <div className="flex gap-6">
                         <div style={{ flex: 1 }}>
                           <span className="section-label block mb-2 font-bold text-[0.85rem] text-text-primary uppercase tracking-[0.05em]">Telemetry & Identity</span>
-                          <div className="bg-bg-surface border border-border-base p-5 rounded-lg shadow-sm">
+                          <div className="bg-bg-surface border border-border-base p-5 rounded-lg shadow-sm dark:shadow-slate-900/50">
                              <div className="flex justify-between mb-3 pb-2 border-b border-border-base">
                                <span className="text-[0.8rem] font-bold text-text-subtle">Session Hash</span>
                                <span className="font-mono text-[0.85rem] text-text-primary">{result.session_id || "N/A"}</span>

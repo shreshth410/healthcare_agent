@@ -38,7 +38,7 @@ export function ImpactDashboard() {
   if (loading || !metrics) {
     return (
       <div className="flex justify-center items-center h-full transition-all duration-300">
-        <div className="flex animate-pulse flex-col items-center gap-4 text-slate-400">
+        <div className="flex animate-pulse flex-col items-center gap-4 text-slate-400 dark:text-slate-500">
           <svg className="h-10 w-10 animate-spin text-brand-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -72,7 +72,7 @@ export function ImpactDashboard() {
       <div className="flex gap-6 mt-6">
         <div style={{ flex: 2 }}>
           <span className="section-label block mb-2 font-bold text-[0.85rem] text-text-primary uppercase tracking-[0.05em]">Throughput Trajectory Modeling</span>
-          <div className="bg-bg-surface border border-border-base rounded-lg p-4 shadow-sm" style={{ height: "350px" }}>
+          <div className="bg-bg-surface border border-border-base rounded-lg p-4 shadow-sm dark:shadow-slate-900/50" style={{ height: "350px" }}>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={metrics.chart_data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
@@ -92,7 +92,7 @@ export function ImpactDashboard() {
 
         <div style={{ flex: 1 }}>
           <span className="section-label block mb-2 font-bold text-[0.85rem] text-text-primary uppercase tracking-[0.05em]">Infrastructure Optimization</span>
-          <div className="bg-bg-surface border border-border-base p-6 rounded-lg shadow-sm">
+          <div className="bg-bg-surface border border-border-base p-6 rounded-lg shadow-sm dark:shadow-slate-900/50">
             <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#0F172A", marginBottom: "0.5rem" }}>
               Smart Inference Router
             </div>

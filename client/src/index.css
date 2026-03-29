@@ -42,6 +42,33 @@
   --sh-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
 }
 
+.dark {
+  --bg: #0F172A;
+  --bg-2: #1E293B;
+  --surface: #1E293B;
+  --surface-2: #334155;
+  --surface-dark: #0F172A;
+  --surface-dark-2: #1E293B;
+  
+  --blue: #3B82F6;
+  --blue-2: #60A5FA;
+  --cyan: #22D3EE;
+  --violet: #A78BFA;
+  --green: #34D399;
+  --green-2: #10B981;
+  --amber: #FBBF24;
+  --red: #FB7185;
+
+  --t1: #F8FAFC;
+  --t2: #E2E8F0;
+  --t3: #94A3B8;
+  --t4: #64748B;
+  --inv: #0F172A;
+
+  --border: #334155;
+  --border-2: #475569;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

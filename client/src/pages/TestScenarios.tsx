@@ -142,7 +142,7 @@ export function TestScenarios() {
         dateStr={new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
       />
 
-      <div className="bg-bg-surface border border-border-base p-[1.2rem_1.5rem] rounded-lg shadow-sm mb-6">
+      <div className="bg-bg-surface border border-border-base p-[1.2rem_1.5rem] rounded-lg shadow-sm dark:shadow-slate-900/50 mb-6">
         <div className="flex items-center gap-6 flex-wrap">
           <div className="flex items-center gap-3">
             <div className="w-6 h-6 rounded-full flex items-center justify-center bg-brand-blue text-white font-mono text-[0.7rem] font-bold">1</div>
@@ -163,7 +163,7 @@ export function TestScenarios() {
 
       <div className="grid grid-cols-[repeat(auto-fill,minmax(330px,1fr))] gap-6">
         {SCENARIOS.map((s) => (
-          <div key={s.key} className="flex flex-col p-6 bg-bg-surface border border-border-base rounded-lg transition-transform hover:-translate-y-1 hover:shadow-md shadow-sm h-full relative">
+          <div key={s.key} className="flex flex-col p-6 bg-bg-surface border border-border-base rounded-lg transition-transform hover:-translate-y-1 hover:shadow-md dark:shadow-slate-900/50 shadow-sm dark:shadow-slate-900/50 h-full relative">
             <span className={clsx(
               "inline-flex self-start py-0.5 px-2.5 rounded-sm text-[0.65rem] font-bold uppercase tracking-[0.1em] border mb-3",
               s.tag_cls === "sc-tag-clean" && "bg-[#ECFDF5] text-[#065F46] border-[#A7F3D0]",
@@ -213,7 +213,7 @@ export function TestScenarios() {
       {/* Modal for viewing/editing scenario */}
       {expandedKey && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[80vh] flex flex-col">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl dark:shadow-slate-900/50 w-full max-w-3xl max-h-[80vh] flex flex-col">
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-border-base">
               <div className="flex items-center gap-3">

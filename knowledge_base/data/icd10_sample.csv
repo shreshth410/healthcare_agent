@@ -1,0 +1,198 @@
+code,description,category,keywords,type
+I20.0,Unstable angina,Cardiology,chest pain angina unstable acute coronary syndrome,ICD10
+I20.9,"Angina pectoris, unspecified",Cardiology,chest pain angina unspecified,ICD10
+I21.0,ST elevation myocardial infarction involving left main coronary artery,Cardiology,STEMI heart attack left main coronary MI,ICD10
+I21.1,ST elevation myocardial infarction involving left anterior descending coronary artery,Cardiology,STEMI heart attack LAD anterior wall MI,ICD10
+I21.2,ST elevation myocardial infarction involving left circumflex coronary artery,Cardiology,STEMI heart attack circumflex lateral wall MI,ICD10
+I21.3,ST elevation myocardial infarction of unspecified site,Cardiology,STEMI heart attack myocardial infarction unspecified,ICD10
+I21.4,Non-ST elevation myocardial infarction,Cardiology,NSTEMI heart attack non-ST elevation MI troponin,ICD10
+I25.10,Atherosclerotic heart disease of native coronary artery without angina pectoris,Cardiology,coronary artery disease CAD atherosclerosis,ICD10
+I25.110,Atherosclerotic heart disease of native coronary artery with unstable angina pectoris,Cardiology,CAD with unstable angina coronary artery disease,ICD10
+I50.9,"Heart failure, unspecified",Cardiology,heart failure CHF congestive cardiac failure,ICD10
+I50.20,Unspecified systolic (congestive) heart failure,Cardiology,systolic heart failure CHF reduced ejection fraction HFrEF,ICD10
+I50.30,Unspecified diastolic (congestive) heart failure,Cardiology,diastolic heart failure CHF preserved ejection fraction HFpEF,ICD10
+I48.0,Paroxysmal atrial fibrillation,Cardiology,atrial fibrillation paroxysmal afib arrhythmia irregular heartbeat,ICD10
+I48.1,Persistent atrial fibrillation,Cardiology,atrial fibrillation persistent afib arrhythmia,ICD10
+I48.2,Chronic atrial fibrillation,Cardiology,atrial fibrillation chronic permanent afib arrhythmia,ICD10
+I48.91,Unspecified atrial fibrillation,Cardiology,atrial fibrillation afib unspecified arrhythmia,ICD10
+I10,Essential (primary) hypertension,Cardiology,hypertension high blood pressure HTN essential primary,ICD10
+I11.0,Hypertensive heart disease with heart failure,Cardiology,hypertensive heart disease heart failure HTN,ICD10
+I42.0,Dilated cardiomyopathy,Cardiology,dilated cardiomyopathy DCM heart enlarged,ICD10
+I42.1,Obstructive hypertrophic cardiomyopathy,Cardiology,hypertrophic cardiomyopathy HOCM obstructive,ICD10
+I49.9,"Cardiac arrhythmia, unspecified",Cardiology,arrhythmia cardiac rhythm disorder unspecified,ICD10
+I47.1,Supraventricular tachycardia,Cardiology,SVT supraventricular tachycardia rapid heart rate,ICD10
+I47.2,Ventricular tachycardia,Cardiology,ventricular tachycardia VT rapid heart rate dangerous,ICD10
+R00.0,"Tachycardia, unspecified",Cardiology,tachycardia rapid heart rate fast pulse,ICD10
+R00.1,"Bradycardia, unspecified",Cardiology,bradycardia slow heart rate,ICD10
+J18.9,"Pneumonia, unspecified organism",Pulmonology,pneumonia lung infection respiratory unspecified,ICD10
+J18.1,"Lobar pneumonia, unspecified organism",Pulmonology,lobar pneumonia lung infection consolidation,ICD10
+J15.9,Unspecified bacterial pneumonia,Pulmonology,bacterial pneumonia lung infection,ICD10
+J44.1,Chronic obstructive pulmonary disease with acute exacerbation,Pulmonology,COPD exacerbation chronic obstructive pulmonary disease flare,ICD10
+J44.0,Chronic obstructive pulmonary disease with acute lower respiratory infection,Pulmonology,COPD infection chronic obstructive pulmonary disease,ICD10
+J44.9,"Chronic obstructive pulmonary disease, unspecified",Pulmonology,COPD chronic obstructive pulmonary disease unspecified,ICD10
+J45.20,"Mild intermittent asthma, uncomplicated",Pulmonology,asthma mild intermittent wheeze bronchospasm,ICD10
+J45.30,"Mild persistent asthma, uncomplicated",Pulmonology,asthma mild persistent wheeze,ICD10
+J45.40,"Moderate persistent asthma, uncomplicated",Pulmonology,asthma moderate persistent wheeze dyspnea,ICD10
+J45.50,"Severe persistent asthma, uncomplicated",Pulmonology,asthma severe persistent wheeze dyspnea,ICD10
+J45.901,Unspecified asthma with acute exacerbation,Pulmonology,asthma exacerbation acute attack wheeze,ICD10
+J90,"Pleural effusion, not elsewhere classified",Pulmonology,pleural effusion fluid lung pleura,ICD10
+J93.9,"Pneumothorax, unspecified",Pulmonology,pneumothorax collapsed lung air chest,ICD10
+J96.00,"Acute respiratory failure, unspecified whether with hypoxia or hypercapnia",Pulmonology,acute respiratory failure hypoxia hypercapnia,ICD10
+J80,Acute respiratory distress syndrome,Pulmonology,ARDS acute respiratory distress syndrome,ICD10
+R06.02,Shortness of breath,Pulmonology,shortness of breath dyspnea SOB breathlessness,ICD10
+R05.9,"Cough, unspecified",Pulmonology,cough unspecified,ICD10
+J06.9,"Acute upper respiratory infection, unspecified",Pulmonology,upper respiratory infection URI cold,ICD10
+E10.9,Type 1 diabetes mellitus without complications,Endocrinology,type 1 diabetes mellitus insulin dependent T1DM,ICD10
+E10.65,Type 1 diabetes mellitus with hyperglycemia,Endocrinology,type 1 diabetes hyperglycemia high blood sugar,ICD10
+E11.9,Type 2 diabetes mellitus without complications,Endocrinology,type 2 diabetes mellitus T2DM non-insulin dependent,ICD10
+E11.65,Type 2 diabetes mellitus with hyperglycemia,Endocrinology,type 2 diabetes hyperglycemia high blood sugar,ICD10
+E11.40,"Type 2 diabetes mellitus with diabetic neuropathy, unspecified",Endocrinology,type 2 diabetes neuropathy nerve damage diabetic,ICD10
+E11.21,Type 2 diabetes mellitus with diabetic nephropathy,Endocrinology,type 2 diabetes nephropathy kidney disease diabetic,ICD10
+E11.311,Type 2 diabetes mellitus with unspecified diabetic retinopathy with macular edema,Endocrinology,type 2 diabetes retinopathy eye macular edema,ICD10
+E03.9,"Hypothyroidism, unspecified",Endocrinology,hypothyroidism underactive thyroid low thyroid,ICD10
+E05.90,"Thyrotoxicosis, unspecified without thyrotoxic crisis or storm",Endocrinology,hyperthyroidism thyrotoxicosis overactive thyroid,ICD10
+E05.00,Thyrotoxicosis with diffuse goiter without thyrotoxic crisis or storm,Endocrinology,Graves disease hyperthyroidism diffuse goiter,ICD10
+E06.3,Autoimmune thyroiditis,Endocrinology,Hashimoto thyroiditis autoimmune thyroid,ICD10
+E78.5,"Hyperlipidemia, unspecified",Endocrinology,hyperlipidemia high cholesterol dyslipidemia,ICD10
+E78.00,"Pure hypercholesterolemia, unspecified",Endocrinology,hypercholesterolemia high cholesterol elevated LDL,ICD10
+E66.01,Morbid (severe) obesity due to excess calories,Endocrinology,morbid obesity severe BMI excess calories,ICD10
+E66.9,"Obesity, unspecified",Endocrinology,obesity overweight BMI elevated,ICD10
+E87.1,Hypo-osmolality and hyponatremia,Endocrinology,hyponatremia low sodium electrolyte imbalance,ICD10
+E87.6,Hypokalemia,Endocrinology,hypokalemia low potassium electrolyte imbalance,ICD10
+I63.9,"Cerebral infarction, unspecified",Neurology,stroke cerebral infarction CVA ischemic brain,ICD10
+I63.50,Cerebral infarction due to unspecified occlusion or stenosis of unspecified cerebral artery,Neurology,stroke cerebral infarction occlusion stenosis ischemic,ICD10
+I61.9,"Nontraumatic intracerebral hemorrhage, unspecified",Neurology,hemorrhagic stroke intracerebral hemorrhage brain bleed,ICD10
+G45.9,"Transient cerebral ischemic attack, unspecified",Neurology,TIA transient ischemic attack mini stroke,ICD10
+G43.909,"Migraine, unspecified, not intractable, without status migrainosus",Neurology,migraine headache unspecified,ICD10
+G43.001,"Migraine without aura, not intractable, with status migrainosus",Neurology,migraine without aura status migrainosus headache,ICD10
+G43.101,"Migraine with aura, not intractable, with status migrainosus",Neurology,migraine with aura status migrainosus headache visual,ICD10
+G40.909,"Epilepsy, unspecified, not intractable, without status epilepticus",Neurology,epilepsy seizure disorder unspecified,ICD10
+G40.901,"Epilepsy, unspecified, not intractable, with status epilepticus",Neurology,epilepsy seizure status epilepticus,ICD10
+G20,Parkinson disease,Neurology,Parkinson disease tremor rigidity bradykinesia,ICD10
+G30.9,"Alzheimer disease, unspecified",Neurology,Alzheimer disease dementia cognitive decline memory loss,ICD10
+G35,Multiple sclerosis,Neurology,multiple sclerosis MS demyelinating disease,ICD10
+R51.9,"Headache, unspecified",Neurology,headache cephalalgia unspecified,ICD10
+G47.00,"Insomnia, unspecified",Neurology,insomnia sleep disorder sleeplessness,ICD10
+R55,Syncope and collapse,Neurology,syncope fainting collapse loss of consciousness,ICD10
+R56.9,Unspecified convulsions,Neurology,seizure convulsions unspecified,ICD10
+K21.0,Gastro-esophageal reflux disease with esophagitis,Gastroenterology,GERD reflux esophagitis heartburn acid,ICD10
+K21.9,Gastro-esophageal reflux disease without esophagitis,Gastroenterology,GERD reflux heartburn acid without esophagitis,ICD10
+K35.80,Unspecified acute appendicitis,Gastroenterology,appendicitis acute appendix inflammation RLQ pain,ICD10
+K50.90,"Crohn disease, unspecified, without complications",Gastroenterology,Crohn disease inflammatory bowel disease IBD,ICD10
+K50.10,Crohn disease of large intestine without complications,Gastroenterology,Crohn disease large intestine colon IBD,ICD10
+K51.90,"Ulcerative colitis, unspecified, without complications",Gastroenterology,ulcerative colitis UC inflammatory bowel disease,ICD10
+K25.9,"Gastric ulcer, unspecified, without hemorrhage or perforation",Gastroenterology,gastric ulcer stomach ulcer peptic,ICD10
+K26.9,"Duodenal ulcer, unspecified, without hemorrhage or perforation",Gastroenterology,duodenal ulcer peptic ulcer,ICD10
+K80.20,Calculus of gallbladder without cholecystitis without obstruction,Gastroenterology,gallstones cholelithiasis gallbladder stones,ICD10
+K85.90,"Acute pancreatitis without necrosis or infection, unspecified",Gastroenterology,acute pancreatitis pancreas inflammation,ICD10
+K76.0,"Fatty (change of) liver, not elsewhere classified",Gastroenterology,fatty liver NAFLD steatosis hepatic,ICD10
+K74.60,Unspecified cirrhosis of liver,Gastroenterology,cirrhosis liver chronic liver disease fibrosis,ICD10
+K92.1,Melena,Gastroenterology,melena GI bleeding black stool tarry,ICD10
+K92.0,Hematemesis,Gastroenterology,hematemesis vomiting blood GI bleeding upper,ICD10
+R10.9,Unspecified abdominal pain,Gastroenterology,abdominal pain belly pain stomach ache unspecified,ICD10
+R11.2,"Nausea with vomiting, unspecified",Gastroenterology,nausea vomiting emesis,ICD10
+S72.001A,"Fracture of unspecified part of neck of right femur, initial encounter",Orthopedics,hip fracture femur neck right initial,ICD10
+S72.002A,"Fracture of unspecified part of neck of left femur, initial encounter",Orthopedics,hip fracture femur neck left initial,ICD10
+S82.001A,"Unspecified fracture of right patella, initial encounter",Orthopedics,patella fracture kneecap right initial,ICD10
+S52.501A,"Unspecified fracture of the lower end of right radius, initial encounter",Orthopedics,radius fracture wrist distal right Colles,ICD10
+S42.001A,"Fracture of unspecified part of right clavicle, initial encounter",Orthopedics,clavicle fracture collarbone right initial,ICD10
+S93.401A,"Sprain of unspecified ligament of right ankle, initial encounter",Orthopedics,ankle sprain ligament right initial,ICD10
+S83.511A,"Sprain of anterior cruciate ligament of right knee, initial encounter",Orthopedics,ACL sprain anterior cruciate knee right,ICD10
+M54.5,Low back pain,Orthopedics,low back pain lumbago lumbar spine,ICD10
+M54.2,Cervicalgia,Orthopedics,neck pain cervicalgia cervical spine,ICD10
+M79.3,"Panniculitis, unspecified",Orthopedics,panniculitis subcutaneous inflammation,ICD10
+M17.11,"Primary osteoarthritis, right knee",Orthopedics,osteoarthritis knee right degenerative joint,ICD10
+M17.12,"Primary osteoarthritis, left knee",Orthopedics,osteoarthritis knee left degenerative joint,ICD10
+M25.511,Pain in right shoulder,Orthopedics,shoulder pain right joint,ICD10
+M75.110,"Incomplete rotator cuff tear or rupture of right shoulder, not specified as traumatic",Orthopedics,rotator cuff tear shoulder right incomplete,ICD10
+M51.16,"Intervertebral disc disorders with radiculopathy, lumbar region",Orthopedics,herniated disc lumbar radiculopathy sciatica,ICD10
+F32.1,"Major depressive disorder, single episode, moderate",Psychiatry,depression major depressive disorder MDD moderate single,ICD10
+F32.2,"Major depressive disorder, single episode, severe without psychotic features",Psychiatry,depression major depressive disorder MDD severe,ICD10
+F33.1,"Major depressive disorder, recurrent, moderate",Psychiatry,depression MDD recurrent moderate,ICD10
+F33.2,"Major depressive disorder, recurrent severe without psychotic features",Psychiatry,depression MDD recurrent severe,ICD10
+F41.1,Generalized anxiety disorder,Psychiatry,anxiety GAD generalized anxiety disorder worry,ICD10
+F41.0,Panic disorder without agoraphobia,Psychiatry,panic disorder panic attacks anxiety,ICD10
+F43.10,"Post-traumatic stress disorder, unspecified",Psychiatry,PTSD post-traumatic stress disorder trauma,ICD10
+F31.9,"Bipolar disorder, unspecified",Psychiatry,bipolar disorder manic depressive unspecified,ICD10
+F31.30,"Bipolar disorder, current episode depressed, mild or moderate severity, unspecified",Psychiatry,bipolar disorder depressed episode mild moderate,ICD10
+F31.10,"Bipolar disorder, current episode manic without psychotic features, unspecified",Psychiatry,bipolar disorder manic episode,ICD10
+F20.9,"Schizophrenia, unspecified",Psychiatry,schizophrenia psychosis psychotic disorder,ICD10
+F10.20,"Alcohol dependence, uncomplicated",Psychiatry,alcohol dependence alcoholism substance use disorder,ICD10
+F17.210,"Nicotine dependence, cigarettes, uncomplicated",Psychiatry,nicotine dependence smoking cigarettes tobacco,ICD10
+F90.9,"Attention-deficit hyperactivity disorder, unspecified type",Psychiatry,ADHD attention deficit hyperactivity disorder,ICD10
+F50.00,"Anorexia nervosa, unspecified",Psychiatry,anorexia nervosa eating disorder,ICD10
+I10,Essential (primary) hypertension,General,hypertension high blood pressure HTN essential,ICD10
+E66.9,"Obesity, unspecified",General,obesity overweight BMI,ICD10
+A41.9,"Sepsis, unspecified organism",General,sepsis septicemia systemic infection SIRS,ICD10
+A41.01,Sepsis due to Methicillin susceptible Staphylococcus aureus,General,MSSA sepsis staph aureus infection,ICD10
+R65.20,Severe sepsis without septic shock,General,severe sepsis organ dysfunction without shock,ICD10
+R65.21,Severe sepsis with septic shock,General,severe sepsis septic shock organ failure,ICD10
+N39.0,"Urinary tract infection, site not specified",General,UTI urinary tract infection bladder kidney,ICD10
+D64.9,"Anemia, unspecified",General,anemia low hemoglobin low red blood cells,ICD10
+D50.9,"Iron deficiency anemia, unspecified",General,iron deficiency anemia low iron ferritin,ICD10
+R50.9,"Fever, unspecified",General,fever pyrexia elevated temperature,ICD10
+Z87.891,Personal history of nicotine dependence,General,history smoking former smoker tobacco,ICD10
+Z79.4,Long-term (current) use of insulin,General,insulin use long-term diabetes,ICD10
+Z79.01,Long-term (current) use of anticoagulants,General,anticoagulant warfarin blood thinner long-term,ICD10
+R07.9,"Chest pain, unspecified",General,chest pain unspecified thoracic pain,ICD10
+R07.1,Chest pain on breathing,General,pleuritic chest pain breathing pleurisy,ICD10
+R09.02,Hypoxemia,General,hypoxemia low oxygen blood O2 desaturation,ICD10
+J96.01,Acute respiratory failure with hypoxia,General,acute respiratory failure hypoxia low oxygen,ICD10
+N17.9,"Acute kidney failure, unspecified",General,acute kidney injury AKI renal failure,ICD10
+N18.9,"Chronic kidney disease, unspecified",General,chronic kidney disease CKD renal insufficiency,ICD10
+K72.00,Acute and subacute hepatic failure without coma,General,acute hepatic failure liver failure,ICD10
+B34.9,"Viral infection, unspecified",General,viral infection unspecified virus,ICD10
+L03.90,"Cellulitis, unspecified",General,cellulitis skin infection soft tissue,ICD10
+T78.40XA,"Allergy, unspecified, initial encounter",General,allergy allergic reaction hypersensitivity initial,ICD10
+R42,Dizziness and giddiness,General,dizziness vertigo lightheaded giddiness,ICD10
+R53.83,Other fatigue,General,fatigue tiredness exhaustion malaise,ICD10
+R63.4,Abnormal weight loss,General,weight loss abnormal unexplained,ICD10
+M79.3,"Panniculitis, unspecified",General,panniculitis inflammation subcutaneous tissue,ICD10
+R73.03,Prediabetes,General,prediabetes impaired glucose tolerance pre-diabetes,ICD10
+99213,"Office or other outpatient visit, established patient, low complexity",E&M,office visit established patient low complexity outpatient,CPT
+99214,"Office or other outpatient visit, established patient, moderate complexity",E&M,office visit established patient moderate complexity outpatient,CPT
+99215,"Office or other outpatient visit, established patient, high complexity",E&M,office visit established patient high complexity outpatient,CPT
+99203,"Office or other outpatient visit, new patient, low complexity",E&M,office visit new patient low complexity outpatient,CPT
+99204,"Office or other outpatient visit, new patient, moderate complexity",E&M,office visit new patient moderate complexity outpatient,CPT
+99205,"Office or other outpatient visit, new patient, high complexity",E&M,office visit new patient high complexity outpatient,CPT
+99281,"Emergency department visit, self-limited or minor problem",E&M,emergency department visit minor ED ER,CPT
+99282,"Emergency department visit, low to moderate severity",E&M,emergency department visit low moderate ED ER,CPT
+99283,"Emergency department visit, moderate severity",E&M,emergency department visit moderate severity ED ER,CPT
+99284,"Emergency department visit, high severity",E&M,emergency department visit high severity ED ER urgent,CPT
+99285,"Emergency department visit, high severity with significant threat to life",E&M,emergency department visit critical life threatening ED ER,CPT
+99221,"Initial hospital inpatient care, low complexity",E&M,hospital admission inpatient initial low complexity,CPT
+99222,"Initial hospital inpatient care, moderate complexity",E&M,hospital admission inpatient initial moderate complexity,CPT
+99223,"Initial hospital inpatient care, high complexity",E&M,hospital admission inpatient initial high complexity,CPT
+99232,"Subsequent hospital inpatient care, moderate complexity",E&M,hospital subsequent inpatient follow-up moderate,CPT
+99233,"Subsequent hospital inpatient care, high complexity",E&M,hospital subsequent inpatient follow-up high complexity,CPT
+99291,"Critical care, first 30-74 minutes",E&M,critical care ICU intensive first 30 minutes,CPT
+93000,"Electrocardiogram, routine ECG with at least 12 leads",Cardiology,ECG EKG electrocardiogram 12 lead heart tracing,CPT
+93306,"Echocardiography, transthoracic, complete",Cardiology,echocardiogram TTE transthoracic echo ultrasound heart,CPT
+93458,Catheter placement in coronary artery for coronary angiography,Cardiology,cardiac catheterization coronary angiography heart catheter,CPT
+92928,Percutaneous transcatheter placement of intracoronary stent,Cardiology,PCI stent coronary percutaneous intervention angioplasty,CPT
+33533,"Coronary artery bypass, using arterial graft; single arterial graft",Cardiology,CABG coronary artery bypass graft surgery,CPT
+71046,"Radiologic examination, chest; 2 views",Radiology,chest X-ray CXR radiograph 2 views,CPT
+71250,"Computed tomography, thorax; without contrast",Radiology,CT chest thorax computed tomography without contrast,CPT
+74177,"Computed tomography, abdomen and pelvis; with contrast",Radiology,CT abdomen pelvis computed tomography with contrast,CPT
+70553,MRI brain without contrast followed by with contrast,Radiology,MRI brain magnetic resonance imaging contrast,CPT
+80053,Comprehensive metabolic panel,Laboratory,CMP comprehensive metabolic panel blood chemistry,CPT
+85025,Complete blood count (CBC) with automated differential,Laboratory,CBC complete blood count differential WBC RBC platelets,CPT
+82553,Creatine kinase MB fraction,Laboratory,CK-MB creatine kinase cardiac enzyme heart,CPT
+84484,"Troponin, quantitative",Laboratory,troponin cardiac biomarker heart attack MI quantitative,CPT
+83036,Hemoglobin A1c,Laboratory,HbA1c hemoglobin A1c diabetes glycated hemoglobin,CPT
+80061,Lipid panel,Laboratory,lipid panel cholesterol triglycerides HDL LDL,CPT
+81001,"Urinalysis, automated, with microscopy",Laboratory,urinalysis UA urine test microscopy,CPT
+36556,Insertion of non-tunneled centrally inserted central venous catheter,Procedures,central line insertion CVC central venous catheter,CPT
+31500,"Intubation, endotracheal, emergency procedure",Procedures,intubation endotracheal tube ETT emergency airway,CPT
+32551,"Tube thoracostomy, includes connection to drainage system",Procedures,chest tube thoracostomy drainage pleural,CPT
+49083,Abdominal paracentesis,Procedures,paracentesis abdominal fluid drainage ascites,CPT
+62270,Lumbar puncture (spinal tap),Procedures,lumbar puncture spinal tap LP CSF,CPT
+43239,Esophagogastroduodenoscopy with biopsy,Procedures,EGD upper endoscopy esophagogastroduodenoscopy biopsy,CPT
+45378,"Colonoscopy, diagnostic",Procedures,colonoscopy diagnostic colon screening,CPT
+27447,"Arthroplasty, knee, condyles and plateau",Procedures,total knee replacement arthroplasty TKR TKA,CPT
+27130,"Arthroplasty, acetabular and proximal femoral prosthetic replacement (total hip replacement)",Procedures,total hip replacement arthroplasty THR THA,CPT
+29881,"Arthroscopy, knee, surgical; with meniscectomy",Procedures,knee arthroscopy meniscectomy meniscus surgery,CPT
+47562,Laparoscopic cholecystectomy,Procedures,cholecystectomy gallbladder removal laparoscopic,CPT
+44970,Laparoscopic appendectomy,Procedures,appendectomy laparoscopic appendix removal,CPT
+90837,"Psychotherapy, 60 minutes",Psychiatry,psychotherapy 60 minutes therapy counseling,CPT
+96127,Brief emotional/behavioral assessment,Psychiatry,PHQ-9 GAD-7 depression anxiety screening assessment,CPT

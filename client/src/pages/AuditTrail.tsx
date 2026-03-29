@@ -168,26 +168,26 @@ export function AuditTrail() {
       {/* Ledger */}
       <section className="mb-10">
         <SectionHeader
-          icon={<Database className="text-indigo-600" size={18} />}
+          icon={<Database className="text-indigo-600 dark:text-indigo-400" size={18} />}
           title="Transaction Ledger"
           subtitle="Select a historical adjudication session for deep inspection"
         />
 
-        <div className="bg-white rounded-3xl shadow-xl border border-slate-200/70 overflow-hidden ring-1 ring-slate-900/5">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl dark:shadow-slate-900/50 border border-slate-200 dark:border-slate-700/70 overflow-hidden ring-1 ring-slate-900/5 dark:ring-slate-100/5">
           <div className="overflow-x-auto w-full hide-scrollbar">
             <table className="w-full text-left border-collapse min-w-[980px]">
               <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-200">
-                  <th className="py-4 px-6 font-bold text-[0.75rem] text-slate-500 uppercase tracking-wider">Status</th>
-                  <th className="py-4 px-6 font-bold text-[0.75rem] text-slate-500 uppercase tracking-wider">
+                <tr className="bg-slate-50 dark:bg-slate-800/50/80 border-b border-slate-200 dark:border-slate-700">
+                  <th className="py-4 px-6 font-bold text-[0.75rem] text-slate-500 dark:text-slate-400 dark:text-slate-500 uppercase tracking-wider">Status</th>
+                  <th className="py-4 px-6 font-bold text-[0.75rem] text-slate-500 dark:text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                     <div className="flex items-center gap-1.5"><Hash size={14} /> Hash ID</div>
                   </th>
-                  <th className="py-4 px-6 font-bold text-[0.75rem] text-slate-500 uppercase tracking-wider">
+                  <th className="py-4 px-6 font-bold text-[0.75rem] text-slate-500 dark:text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                     <div className="flex items-center gap-1.5"><Clock size={14} /> Timestamp</div>
                   </th>
-                  <th className="py-4 px-6 font-bold text-[0.75rem] text-slate-500 uppercase tracking-wider">Confidence</th>
-                  <th className="py-4 px-6 font-bold text-[0.75rem] text-slate-500 uppercase tracking-wider">ICD / CPT</th>
-                  <th className="py-4 px-6 font-bold text-[0.75rem] text-slate-500 uppercase tracking-wider">Clinical Note Preview</th>
+                  <th className="py-4 px-6 font-bold text-[0.75rem] text-slate-500 dark:text-slate-400 dark:text-slate-500 uppercase tracking-wider">Confidence</th>
+                  <th className="py-4 px-6 font-bold text-[0.75rem] text-slate-500 dark:text-slate-400 dark:text-slate-500 uppercase tracking-wider">ICD / CPT</th>
+                  <th className="py-4 px-6 font-bold text-[0.75rem] text-slate-500 dark:text-slate-400 dark:text-slate-500 uppercase tracking-wider">Clinical Note Preview</th>
                 </tr>
               </thead>
               <tbody>
@@ -199,20 +199,20 @@ export function AuditTrail() {
                       key={s.session_id}
                       onClick={() => setSelectedId(s.session_id)}
                       className={clsx(
-                        "border-b border-slate-100 cursor-pointer transition-all duration-200 text-[0.9rem] text-slate-700 group",
-                        selectedId === s.session_id ? "bg-indigo-50/60 hover:bg-indigo-50/80" : "hover:bg-slate-50"
+                        "border-b border-slate-100 dark:border-slate-800 cursor-pointer transition-all duration-200 text-[0.9rem] text-slate-700 dark:text-slate-300 group",
+                        selectedId === s.session_id ? "bg-indigo-50 dark:bg-indigo-900/20/60 dark:bg-indigo-900/20 hover:bg-indigo-50 dark:bg-indigo-900/20/80 dark:bg-indigo-900/40" : "hover:bg-slate-50 dark:bg-slate-800/50"
                       )}
                     >
                       <td className="py-4 px-6 whitespace-nowrap">
-                        <span className={clsx("inline-flex items-center gap-1.5 px-3 py-1 text-[0.7rem] font-bold uppercase rounded-full border shadow-sm", styles.pill)}>
+                        <span className={clsx("inline-flex items-center gap-1.5 px-3 py-1 text-[0.7rem] font-bold uppercase rounded-full border shadow-sm dark:shadow-slate-900/50", styles.pill)}>
                           <div className={clsx("w-1.5 h-1.5 rounded-full", styles.dot, stat !== "Standard" && "animate-pulse")} />
                           {stat}
                         </span>
                       </td>
-                      <td className="py-4 px-6 font-mono text-[0.85rem] font-bold text-indigo-900/80 group-hover:text-indigo-600 transition-colors">
+                      <td className="py-4 px-6 font-mono text-[0.85rem] font-bold text-indigo-900/80 group-hover:text-indigo-600 dark:text-indigo-400 transition-colors">
                         {s.session_id?.substring(0, 8).toUpperCase()}
                       </td>
-                      <td className="py-4 px-6 text-slate-500 whitespace-nowrap text-[0.85rem]">
+                      <td className="py-4 px-6 text-slate-500 dark:text-slate-400 dark:text-slate-500 whitespace-nowrap text-[0.85rem]">
                         {s.timestamp?.substring(0, 16).replace("T", " ") || "—"}
                       </td>
                       <td className="py-4 px-6 font-semibold">
@@ -220,15 +220,15 @@ export function AuditTrail() {
                       </td>
                       <td className="py-4 px-6">
                         <div className="flex gap-2">
-                          <div className="px-2 py-0.5 rounded bg-slate-100 border border-slate-200 text-[0.75rem] font-bold text-slate-600 flex items-center gap-1">
+                          <div className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[0.75rem] font-bold text-slate-600 dark:text-slate-400 dark:text-slate-500 flex items-center gap-1">
                             <span className="text-indigo-400">I:</span> {s.icd10_count ?? "0"}
                           </div>
-                          <div className="px-2 py-0.5 rounded bg-slate-100 border border-slate-200 text-[0.75rem] font-bold text-slate-600 flex items-center gap-1">
+                          <div className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[0.75rem] font-bold text-slate-600 dark:text-slate-400 dark:text-slate-500 flex items-center gap-1">
                             <span className="text-emerald-500">C:</span> {s.cpt_count ?? "0"}
                           </div>
                         </div>
                       </td>
-                      <td className="py-4 px-6 text-slate-500 text-[0.85rem] truncate max-w-[320px]">
+                      <td className="py-4 px-6 text-slate-500 dark:text-slate-400 dark:text-slate-500 text-[0.85rem] truncate max-w-[320px]">
                         {s.raw_note_preview ? s.raw_note_preview.substring(0, 70) + "…" : "—"}
                       </td>
                     </tr>
@@ -237,10 +237,10 @@ export function AuditTrail() {
                 {sessions.length === 0 && !loading && (
                   <tr>
                     <td colSpan={6} className="py-16 px-4 text-center">
-                      <div className="flex flex-col items-center justify-center text-slate-400">
+                      <div className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500">
                         <Database size={48} className="mb-4 opacity-20" />
-                        <div className="font-extrabold text-slate-700 text-[1.1rem] mb-1">Ledger Empty</div>
-                        <div className="text-slate-500 text-[0.9rem]">Execute at least one processing cycle to populate the audit ledger.</div>
+                        <div className="font-extrabold text-slate-700 dark:text-slate-300 text-[1.1rem] mb-1">Ledger Empty</div>
+                        <div className="text-slate-500 dark:text-slate-400 dark:text-slate-500 text-[0.9rem]">Execute at least one processing cycle to populate the audit ledger.</div>
                       </div>
                     </td>
                   </tr>
@@ -255,12 +255,12 @@ export function AuditTrail() {
       {auditData && selectedSession && (
         <section className="animate-in slide-in-from-bottom-4 fade-in duration-700">
           <SectionHeader
-            icon={<Search className="text-indigo-600" size={18} />}
+            icon={<Search className="text-indigo-600 dark:text-indigo-400" size={18} />}
             title="Deep Inspection Lens"
             subtitle={`Full traceability for case ${selectedId.substring(0, 8).toUpperCase()}`}
           />
 
-          <div className="mb-6 shadow-sm rounded-2xl overflow-hidden">
+          <div className="mb-6 shadow-sm dark:shadow-slate-900/50 rounded-2xl overflow-hidden">
             {(() => {
               const stat = getStatusLabel(selectedSession);
               if (stat === "Exception") return <Alert kind="danger" title="This case was escalated due to guardrail conflict or insufficient deterministic support." />;
@@ -286,9 +286,9 @@ export function AuditTrail() {
             </button>
           </div>
 
-          <div className="bg-white rounded-3xl shadow-xl ring-1 ring-slate-900/5 p-6 md:p-8 border border-slate-200/70">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl dark:shadow-slate-900/50 ring-1 ring-slate-900/5 dark:ring-slate-100/5 p-6 md:p-8 border border-slate-200 dark:border-slate-700/70">
             {/* Pill Tabs */}
-            <div className="flex overflow-x-auto hide-scrollbar gap-2 mb-8 bg-slate-50/70 p-1.5 rounded-2xl border border-slate-100">
+            <div className="flex overflow-x-auto hide-scrollbar gap-2 mb-8 bg-slate-50 dark:bg-slate-800/50/70 p-1.5 rounded-2xl border border-slate-100 dark:border-slate-800">
               {[
                 { id: "note", label: "Clinical Note", icon: FileText },
                 { id: "schema", label: "Extraction Summary", icon: Stethoscope },
@@ -300,11 +300,11 @@ export function AuditTrail() {
                   key={tab.id}
                   className={clsx(
                     "flex-1 whitespace-nowrap px-4 py-2.5 rounded-xl text-[0.9rem] font-bold transition-all duration-300 outline-none flex items-center justify-center gap-2",
-                    activeTab === tab.id ? "bg-white text-indigo-600 shadow-sm ring-1 ring-slate-900/5" : "text-slate-500 hover:text-slate-800 hover:bg-slate-100"
+                    activeTab === tab.id ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm dark:shadow-slate-900/50 ring-1 ring-slate-900/5 dark:ring-slate-100/5" : "text-slate-500 dark:text-slate-400 dark:text-slate-500 hover:text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:bg-slate-800"
                   )}
                   onClick={() => setActiveTab(tab.id)}
                 >
-                  <tab.icon size={16} className={activeTab === tab.id ? "text-indigo-500" : "text-slate-400"} />
+                  <tab.icon size={16} className={activeTab === tab.id ? "text-indigo-500 dark:text-indigo-400" : "text-slate-400 dark:text-slate-500"} />
                   {tab.label}
                 </button>
               ))}
@@ -315,7 +315,7 @@ export function AuditTrail() {
               <div className="grid lg:grid-cols-[1.7fr_0.9fr] gap-8 animate-in fade-in slide-in-from-left-2 duration-300">
                 <div>
                   <PanelTitle icon={<FileSearch size={16} />} title="Clinical Source Document" subtitle="Original encounter note with operational review context" />
-                  <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 whitespace-pre-wrap text-[0.92rem] leading-relaxed font-mono text-slate-800 shadow-inner min-h-[320px]">
+                  <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 whitespace-pre-wrap text-[0.92rem] leading-relaxed font-mono text-slate-800 dark:text-slate-200 shadow-inner min-h-[320px]">
                     {auditData.raw_note_preview || "Data unavailable."}
                   </div>
                 </div>
@@ -331,27 +331,27 @@ export function AuditTrail() {
               <div className="grid lg:grid-cols-[1.7fr_0.9fr] gap-8 animate-in fade-in slide-in-from-left-2 duration-300">
                 <div>
                   <PanelTitle icon={<Stethoscope size={16} />} title="Clinical Extraction Summary" subtitle="Structured fields parsed from the source note before coding" />
-                  <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                  <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm dark:shadow-slate-900/50">
                     <table className="w-full text-left">
                       <thead>
-                        <tr className="bg-slate-50 border-b border-slate-200">
-                          <th className="px-5 py-3 text-[0.75rem] uppercase tracking-wider text-slate-500 font-bold">Field</th>
-                          <th className="px-5 py-3 text-[0.75rem] uppercase tracking-wider text-slate-500 font-bold">Extracted Value</th>
-                          <th className="px-5 py-3 text-[0.75rem] uppercase tracking-wider text-slate-500 font-bold">Confidence</th>
+                        <tr className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+                          <th className="px-5 py-3 text-[0.75rem] uppercase tracking-wider text-slate-500 dark:text-slate-400 dark:text-slate-500 font-bold">Field</th>
+                          <th className="px-5 py-3 text-[0.75rem] uppercase tracking-wider text-slate-500 dark:text-slate-400 dark:text-slate-500 font-bold">Extracted Value</th>
+                          <th className="px-5 py-3 text-[0.75rem] uppercase tracking-wider text-slate-500 dark:text-slate-400 dark:text-slate-500 font-bold">Confidence</th>
                         </tr>
                       </thead>
                       <tbody>
                         {extractionRows.length > 0 ? (
                           extractionRows.map((row, idx) => (
-                            <tr key={idx} className="border-b border-slate-100 last:border-0">
-                              <td className="px-5 py-4 text-[0.88rem] font-semibold text-slate-700">{row.label}</td>
-                              <td className="px-5 py-4 text-[0.88rem] text-slate-600">{row.value}</td>
+                            <tr key={idx} className="border-b border-slate-100 dark:border-slate-800 last:border-0">
+                              <td className="px-5 py-4 text-[0.88rem] font-semibold text-slate-700 dark:text-slate-300">{row.label}</td>
+                              <td className="px-5 py-4 text-[0.88rem] text-slate-600 dark:text-slate-400 dark:text-slate-500">{row.value}</td>
                               <td className="px-5 py-4"><Badge confidence={row.confidence} /></td>
                             </tr>
                           ))
                         ) : (
                           <tr>
-                            <td colSpan={3} className="px-5 py-10 text-center text-slate-500">No structured extraction data available.</td>
+                            <td colSpan={3} className="px-5 py-10 text-center text-slate-500 dark:text-slate-400 dark:text-slate-500">No structured extraction data available.</td>
                           </tr>
                         )}
                       </tbody>
@@ -376,17 +376,17 @@ export function AuditTrail() {
                     codeCards.map((card, idx) => (
                       <div
                         key={idx}
-                        className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-all duration-300"
+                        className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm dark:shadow-slate-900/50 hover:shadow-md dark:shadow-slate-900/50 transition-all duration-300"
                       >
                         <div className="flex items-start justify-between gap-3 mb-4">
                           <div>
-                            <div className="text-[0.75rem] uppercase tracking-widest font-bold text-slate-500 mb-1">
+                            <div className="text-[0.75rem] uppercase tracking-widest font-bold text-slate-500 dark:text-slate-400 dark:text-slate-500 mb-1">
                               {card.type}
                             </div>
-                            <div className="text-[1.3rem] font-black text-slate-900 leading-none mb-2">
+                            <div className="text-[1.3rem] font-black text-slate-900 dark:text-slate-100 leading-none mb-2">
                               {card.code}
                             </div>
-                            <div className="text-[0.9rem] text-slate-600">
+                            <div className="text-[0.9rem] text-slate-600 dark:text-slate-400 dark:text-slate-500">
                               {card.description}
                             </div>
                           </div>
@@ -398,7 +398,7 @@ export function AuditTrail() {
                           <DetailBlock label="Evidence" value={card.evidence} />
                           
                           <div className="flex items-center gap-4 pt-3 mt-1">
-                            <span className="text-[0.75rem] font-bold uppercase tracking-widest text-slate-500">
+                            <span className="text-[0.75rem] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 dark:text-slate-500">
                               Status
                             </span>
                             <span
@@ -418,7 +418,7 @@ export function AuditTrail() {
                       </div>
                     ))
                   ) : (
-                    <div className="col-span-1 xl:col-span-2 rounded-2xl border border-slate-200 bg-slate-50 p-10 text-center text-slate-500">
+                    <div className="col-span-1 xl:col-span-2 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 p-10 text-center text-slate-500 dark:text-slate-400 dark:text-slate-500">
                       No structured coding output available.
                     </div>
                   )}
@@ -437,22 +437,22 @@ export function AuditTrail() {
                 
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 items-start">
                   {complianceChecks.map((item, idx) => (
-                    <div key={idx} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-all duration-300">
+                    <div key={idx} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm dark:shadow-slate-900/50 hover:shadow-md dark:shadow-slate-900/50 transition-all duration-300">
                       <div className="flex items-start justify-between gap-3 mb-4">
                         <div className="flex items-center gap-3">
                           <div className={clsx("w-10 h-10 rounded-2xl flex items-center justify-center shrink-0", item.status === "pass" ? "bg-emerald-50 text-emerald-600" : item.status === "warn" ? "bg-amber-50 text-amber-600" : "bg-rose-50 text-rose-600")}>
                             {item.status === "pass" ? <CheckCircle2 size={18} /> : item.status === "warn" ? <AlertTriangle size={18} /> : <ShieldAlert size={18} />}
                           </div>
                           <div>
-                            <div className="font-bold text-slate-900 text-[1.05rem]">{item.title}</div>
-                            <div className="text-[0.85rem] text-slate-500 mt-0.5">{item.short}</div>
+                            <div className="font-bold text-slate-900 dark:text-slate-100 text-[1.05rem]">{item.title}</div>
+                            <div className="text-[0.85rem] text-slate-500 dark:text-slate-400 dark:text-slate-500 mt-0.5">{item.short}</div>
                           </div>
                         </div>
                         <span className={clsx("px-3 py-1.5 rounded-full text-[0.72rem] font-bold uppercase border whitespace-nowrap", item.status === "pass" ? "bg-emerald-50 text-emerald-700 border-emerald-200" : item.status === "warn" ? "bg-amber-50 text-amber-700 border-amber-200" : "bg-rose-50 text-rose-700 border-rose-200")}>
                           {item.status === "pass" ? "Passed" : item.status === "warn" ? "Review" : "Blocked"}
                         </span>
                       </div>
-                      <div className="text-[0.9rem] text-slate-600 leading-relaxed mt-2 pt-4 border-t border-slate-100">{item.detail}</div>
+                      <div className="text-[0.9rem] text-slate-600 dark:text-slate-400 dark:text-slate-500 leading-relaxed mt-2 pt-4 border-t border-slate-100 dark:border-slate-800">{item.detail}</div>
                     </div>
                   ))}
                 </div>
@@ -470,21 +470,21 @@ export function AuditTrail() {
                 
                 <div className="space-y-5">
                   {traceSteps.map((step, idx) => (
-                    <div key={idx} className="relative rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                    <div key={idx} className="relative rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm dark:shadow-slate-900/50">
                       {idx !== traceSteps.length - 1 && <div className="absolute left-[35px] top-[66px] bottom-[-24px] w-[2px] bg-gradient-to-b from-indigo-200 to-slate-200" />}
                       <div className="flex gap-5">
-                        <div className="relative z-10 w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                        <div className="relative z-10 w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
                           {step.icon}
                         </div>
                         <div className="flex-1">
                           <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                             <div>
-                              <div className="text-[0.75rem] uppercase tracking-widest text-slate-500 font-bold mb-0.5">Step {idx + 1}</div>
-                              <div className="font-black text-slate-900 text-[1.1rem]">{step.title}</div>
+                              <div className="text-[0.75rem] uppercase tracking-widest text-slate-500 dark:text-slate-400 dark:text-slate-500 font-bold mb-0.5">Step {idx + 1}</div>
+                              <div className="font-black text-slate-900 dark:text-slate-100 text-[1.1rem]">{step.title}</div>
                             </div>
-                            <span className="px-3 py-1 rounded-full text-[0.72rem] font-bold bg-slate-100 text-slate-700 border border-slate-200">{step.agent}</span>
+                            <span className="px-3 py-1 rounded-full text-[0.72rem] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">{step.agent}</span>
                           </div>
-                          <div className="text-[0.95rem] text-slate-600 leading-relaxed mb-4">{step.description}</div>
+                          <div className="text-[0.95rem] text-slate-600 dark:text-slate-400 dark:text-slate-500 leading-relaxed mb-4">{step.description}</div>
                           <div className="grid md:grid-cols-2 gap-4">
                             <MiniDetail label="Input" value={step.input} />
                             <MiniDetail label="Output" value={step.output} />
@@ -511,10 +511,10 @@ export function AuditTrail() {
 
 function MetricCard({ label, value, icon, bar }: { label: string; value: string | number; icon: React.ReactNode; bar: string }) {
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-5 text-center shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 text-center shadow-sm dark:shadow-slate-900/50 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
       <div className={clsx("absolute top-0 left-0 w-full h-1", bar)} />
-      <div className="text-[2rem] text-slate-900 font-black mb-1">{value}</div>
-      <div className="text-[0.72rem] font-bold text-slate-500 uppercase tracking-widest flex justify-center items-center gap-1.5">{icon} {label}</div>
+      <div className="text-[2rem] text-slate-900 dark:text-slate-100 font-black mb-1">{value}</div>
+      <div className="text-[0.72rem] font-bold text-slate-500 dark:text-slate-400 dark:text-slate-500 uppercase tracking-widest flex justify-center items-center gap-1.5">{icon} {label}</div>
     </div>
   );
 }
@@ -524,9 +524,9 @@ function SectionHeader({ icon, title, subtitle }: { icon: React.ReactNode; title
     <div className="mb-4">
       <div className="flex items-center gap-2 mb-1">
         {icon}
-        <span className="font-bold text-[0.88rem] text-slate-800 uppercase tracking-widest">{title}</span>
+        <span className="font-bold text-[0.88rem] text-slate-800 dark:text-slate-200 uppercase tracking-widest">{title}</span>
       </div>
-      {subtitle && <div className="text-[0.9rem] text-slate-500">{subtitle}</div>}
+      {subtitle && <div className="text-[0.9rem] text-slate-500 dark:text-slate-400 dark:text-slate-500">{subtitle}</div>}
     </div>
   );
 }
@@ -536,31 +536,31 @@ function PanelTitle({ icon, title, subtitle }: { icon: React.ReactNode; title: s
     <div className="mb-4">
       <div className="flex items-center gap-2 mb-1">
         {icon}
-        <h4 className="font-bold text-[0.88rem] text-slate-800 uppercase tracking-widest">{title}</h4>
+        <h4 className="font-bold text-[0.88rem] text-slate-800 dark:text-slate-200 uppercase tracking-widest">{title}</h4>
       </div>
-      {subtitle && <p className="text-[0.88rem] text-slate-500">{subtitle}</p>}
+      {subtitle && <p className="text-[0.88rem] text-slate-500 dark:text-slate-400 dark:text-slate-500">{subtitle}</p>}
     </div>
   );
 }
 
 function SummaryMiniCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-      <div className="flex items-center gap-2 text-slate-500 text-[0.75rem] font-bold uppercase tracking-widest mb-2">{icon} {label}</div>
-      <div className="text-[1.05rem] font-black text-slate-900 truncate">{value}</div>
+    <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 shadow-sm dark:shadow-slate-900/50">
+      <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 dark:text-slate-500 text-[0.75rem] font-bold uppercase tracking-widest mb-2">{icon} {label}</div>
+      <div className="text-[1.05rem] font-black text-slate-900 dark:text-slate-100 truncate">{value}</div>
     </div>
   );
 }
 
 function InfoCard({ title, content, icon, tone = "slate" }: { title: string; content: string; icon: React.ReactNode; tone?: "slate" | "indigo" | "emerald" | "amber" }) {
   const tones = {
-    slate: "bg-slate-50 border-slate-200 text-slate-800",
-    indigo: "bg-indigo-50/70 border-indigo-100 text-indigo-900",
+    slate: "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200",
+    indigo: "bg-indigo-50 dark:bg-indigo-900/20/70 border-indigo-100 text-indigo-900",
     emerald: "bg-emerald-50/70 border-emerald-100 text-emerald-900",
     amber: "bg-amber-50/70 border-amber-100 text-amber-900",
   };
   return (
-    <div className={clsx("p-5 rounded-2xl border shadow-sm", tones[tone])}>
+    <div className={clsx("p-5 rounded-2xl border shadow-sm dark:shadow-slate-900/50", tones[tone])}>
       <div className="flex items-center gap-2 font-bold text-[0.85rem] uppercase tracking-widest mb-3">{icon} {title}</div>
       <div className="text-[0.88rem] leading-relaxed opacity-90">{content}</div>
     </div>
@@ -570,17 +570,17 @@ function InfoCard({ title, content, icon, tone = "slate" }: { title: string; con
 function DetailBlock({ label, value }: { label: string; value: string }) {
   return (
     <div className="mb-2">
-      <div className="text-[0.72rem] uppercase tracking-widest font-bold text-slate-500 mb-1">{label}</div>
-      <div className="text-[0.88rem] text-slate-700 leading-relaxed">{value}</div>
+      <div className="text-[0.72rem] uppercase tracking-widest font-bold text-slate-500 dark:text-slate-400 dark:text-slate-500 mb-1">{label}</div>
+      <div className="text-[0.88rem] text-slate-700 dark:text-slate-300 leading-relaxed">{value}</div>
     </div>
   );
 }
 
 function MiniDetail({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl bg-slate-50 border border-slate-200 p-4 h-full">
-      <div className="text-[0.72rem] uppercase tracking-widest font-bold text-slate-500 mb-1">{label}</div>
-      <div className="text-[0.85rem] text-slate-700 leading-relaxed font-medium">{value}</div>
+    <div className="rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-4 h-full">
+      <div className="text-[0.72rem] uppercase tracking-widest font-bold text-slate-500 dark:text-slate-400 dark:text-slate-500 mb-1">{label}</div>
+      <div className="text-[0.85rem] text-slate-700 dark:text-slate-300 leading-relaxed font-medium">{value}</div>
     </div>
   );
 }
@@ -594,12 +594,12 @@ function RawJsonDrawer({ title, open, onToggle, json, color = "indigo" }: { titl
   };
   return (
     <div className="mt-5">
-      <button onClick={onToggle} className="w-full flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 hover:bg-slate-100 px-5 py-4 transition-all duration-200">
-        <div className="font-bold text-[0.85rem] text-slate-700 uppercase tracking-widest">{title}</div>
+      <button onClick={onToggle} className="w-full flex items-center justify-between rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:bg-slate-800 px-5 py-4 transition-all duration-200">
+        <div className="font-bold text-[0.85rem] text-slate-700 dark:text-slate-300 uppercase tracking-widest">{title}</div>
         {open ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
       </button>
       {open && (
-        <div className="mt-3 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-300">
+        <div className="mt-3 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl dark:shadow-slate-900/50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-300">
           <div className="bg-slate-800/50 px-4 py-2 flex gap-2 border-b border-slate-700/50">
             <div className="w-3 h-3 rounded-full bg-rose-500/80" />
             <div className="w-3 h-3 rounded-full bg-amber-500/80" />
