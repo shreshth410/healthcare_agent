@@ -4,7 +4,7 @@ An enterprise-grade, multi-agent AI system designed to autonomously process clin
 
 ---
 
-## 🏗️ Core Architecture
+## 🏗️ The Core Architecture
 
 ```mermaid
 graph TD
