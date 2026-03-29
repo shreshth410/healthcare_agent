@@ -36,7 +36,7 @@ graph TD
 
 ---
 
-## 🌟 Hackathon Track 5: Alignment & Features
+##  Hackathon Track 5: Alignment & Features
 
 This submission is strictly engineered to hit every judging criterion for Track 5, successfully scoring in the elite tier by fulfilling the following advanced architectural patterns:
 
